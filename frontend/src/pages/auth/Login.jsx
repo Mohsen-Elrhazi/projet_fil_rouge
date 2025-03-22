@@ -2,6 +2,7 @@ import GoogleImage from '../../assets/images/auth/google.png';
 import GithubImage from '../../assets/images/auth/github.png';
 import LinkedinImage from '../../assets/images/auth/linkedin.png';
 
+
 export default function Loginform(){
   return (
     <div className="min-h-screen flex items-center justify-center ">
