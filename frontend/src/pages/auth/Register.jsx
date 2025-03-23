@@ -6,18 +6,18 @@ export default function Registerform() {
   return (
     <div className="min-h-screen flex items-center justify-center ">
       <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-xl">
-        <h2 className="text-3xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">
+        <h2 className="text-3xl font-bold mb-6 text-center bg-clip-text text-gray-900">
           Inscription
         </h2>
-        <form>
+        <form method="post" action="/register">
           <div className="mb-4">
             <label className="block text-lg font-medium text-gray-700">
               Name
             </label>
             <input
-              type="email"
+              type="text"
               placeholder="Entrez votre email"
-              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
               name="name"
             />
           </div>
@@ -28,7 +28,7 @@ export default function Registerform() {
             <input
               type="email"
               placeholder="Entrez votre email"
-              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
               name="email"
             />
           </div>
@@ -38,8 +38,8 @@ export default function Registerform() {
             </label>
             <input
               type="tel"
-              placeholder="Entrez votre numero telephone"
-              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              placeholder="Entrez votre numero de telephone"
+              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
               name="telephone"
             />
           </div>
@@ -50,13 +50,13 @@ export default function Registerform() {
             <input
               type="password"
               placeholder="Entrez votre mot de passe"
-              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
               name="password"
             />
           </div>
           <button
             type="submit"
-            className="text-lg w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 px-4 rounded-lg shadow-lg hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="text-lg w-full bg-gray-800 hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 text-white py-2 px-4 rounded-lg shadow-lg  focus:outline-none focus:ring-2 "
           >
             S inscrire
           </button>
