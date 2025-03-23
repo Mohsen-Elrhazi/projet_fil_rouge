@@ -51,6 +51,15 @@ class AuthController extends Controller
             'status' => 'error',
             'message' => 'Invalid login details',
         ], 401);
+    }
 
+    public function logout(){
+        $user= Auth::user();
+      $user->tokens()->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User logged out successfully',
+        ], 200);
     }
 }
