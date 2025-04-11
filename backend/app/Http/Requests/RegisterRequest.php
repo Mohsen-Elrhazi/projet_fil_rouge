@@ -28,17 +28,15 @@ class RegisterRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    public function messages()
     {
         return [
-           'name.required' => 'Le nom est obligatoire.',
+            'name.required' => 'Le nom est obligatoire.',
             'email.required' => 'L\'email est obligatoire.',
             'email.email' => 'Veuillez fournir une adresse email valide.',
             'email.unique' => 'Cet email est déjà utilisé.',
             'password.required' => 'Le mot de passe est obligatoire.',
             'password.min' => 'Le mot de passe doit contenir au moins 6 caractères.',
-            'confirm_password.required' => 'Veuillez confirmer votre mot de passe.',
-            'confirm_password.same' => 'Les mots de passe ne correspondent pas.',
         ];
     }
 }
