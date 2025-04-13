@@ -19,6 +19,8 @@ Route::get('/', function () {
 });
 Route::get('/register', [AuthController::class, 'registerForm'])->name('register'); 
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
+Route::get('/forgot-password', [AuthController::class, 'forgotPasswordForm'])->name('forgotPassword');
+
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

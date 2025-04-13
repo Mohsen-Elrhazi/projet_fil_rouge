@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -20,6 +21,11 @@ class AuthController extends Controller
     public function loginForm()
     {
         return view('auth.login');
+    }
+
+    public function forgotPasswordForm()
+    {
+        return view('auth.forgot-password');
     }
     
     public function register(RegisterRequest $request)
@@ -43,5 +49,7 @@ class AuthController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
+
+
 
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Forgot Password</title>
     <!-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> -->
 
     <!--font font-awesome  -->
@@ -23,53 +23,36 @@
         <div class="flex-col flex  self-center lg:px-14 sm:max-w-4xl xl:max-w-md  z-10">
             <div class="self-start hidden lg:flex flex-col  text-gray-300">
 
-                <h1 class="my-3 font-semibold text-4xl">Welcome back</h1>
-                <p class="pr-3 text-base opacity-75">Lorem ipsum is placeholder text commonly used in the graphic,
-                    print,
-                    and publishing industries for previewing layouts and visual mockups</p>
+                <h1 class="my-3 font-semibold text-4xl">Reset Password</h1>
+                <p class="pr-3 text-base opacity-75">Enter your email address and we'll send you a link to reset your
+                    password.</p>
             </div>
         </div>
         <div class="flex justify-center self-center  z-10">
             <div class="p-12 bg-white mx-auto rounded-3xl w-112 ">
                 <div class="mb-7">
-                    <h3 class="font-semibold text-2xl text-gray-800">Sign In </h3>
-                    <p class="text-gray-500">Don'thave an account? <a href="{{ route('register') }}"
-                            class="text-sm text-purple-700 hover:text-purple-700">Sign Up</a></p>
+                    <h3 class="font-semibold text-2xl text-gray-800">Forgot Password</h3>
+                    <p class="text-gray-500">Remember your password? <a href="{{ route('login') }}"
+                            class="text-sm text-purple-700 hover:text-purple-700">Sign In</a></p>
                 </div>
                 <div class="space-y-6">
                     <div class="">
                         <input
                             class=" w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
-                            type="" placeholder="Email">
+                            type="email" placeholder="Email Address" required>
                     </div>
 
-
-                    <div class="relative">
-                        <input placeholder="Password" type="password" id="password"
-                            class="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400 ">
-                        <div
-                            class="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5 justify-center text-center">
-                            <i class="fa-regular fa-eye  h-4 w-5 text-purple-700  cursor-pointer"></i>
-                            <i class="fa-regular fa-eye-slash h-4 w-5 text-purple-700  cursor-pointer"
-                                style="display: none;"></i>
-                        </div>
-                    </div>
-
-
-                    <div class="flex items-center justify-between">
-
-                        <div class="text-sm ml-auto">
-                            <a href="{{ route("forgotPassword") }}" class="text-purple-700 hover:text-purple-600">
-                                Forgot your password?
-                            </a>
-                        </div>
-                    </div>
                     <div>
                         <button type="submit"
                             class="w-full flex justify-center bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
-                            Sign in
+                            Send Reset Link
                         </button>
                     </div>
+
+                    <div class="text-center text-sm text-gray-500">
+                        <p>We'll email you instructions on how to reset your password.</p>
+                    </div>
+
                     <div class="flex items-center justify-center space-x-2 my-5">
                         <span class="h-px w-16 bg-gray-400"></span>
                         <span class="text-gray-400 font-normal">or</span>
@@ -89,7 +72,6 @@
                                 <path fill="#FBBC05"
                                     d="M5.277 14.268A7.12 7.12 0 0 1 4.909 12c0-.782.125-1.533.357-2.235L1.24 6.65A11.934 11.934 0 0 0 0 12c0 1.92.445 3.73 1.237 5.335l4.04-3.067Z" />
                             </svg>
-                            <!-- <svg class="w-4" fill="#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.99 13.9v-3.72h9.36c.14.63.25 1.22.25 2.05 0 5.71-3.83 9.77-9.6 9.77-5.52 0-10-4.48-10-10S6.48 2 12 2c2.7 0 4.96.99 6.69 2.61l-2.84 2.76c-.72-.68-1.98-1.48-3.85-1.48-3.31 0-6.01 2.75-6.01 6.12s2.7 6.12 6.01 6.12c3.83 0 5.24-2.65 5.5-4.22h-5.51v-.01Z"></path></svg> -->
                             <span>Google</span>
                         </button>
 
@@ -108,7 +90,6 @@
                                         style="fill:#f1f1f1" />
                                 </g>
                             </svg>
-                            <!-- <svg class="w-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" fill-rule="evenodd" d="M9.945 22v-8.834H7V9.485h2.945V6.54c0-3.043 1.926-4.54 4.64-4.54 1.3 0 2.418.097 2.744.14v3.18h-1.883c-1.476 0-1.82.703-1.82 1.732v2.433h3.68l-.736 3.68h-2.944L13.685 22"></path></svg> -->
                             <span>Facebook</span>
                         </button>
 
