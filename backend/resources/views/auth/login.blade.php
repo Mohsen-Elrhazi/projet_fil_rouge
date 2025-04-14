@@ -41,8 +41,8 @@
                     @csrf
                     <div class="space-y-6">
                         <div class="h-14">
-                            <input type="email" placeholder="Email" name="email"
-                                class=" w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400">
+                            <input type="email" placeholder="Email" name="email" value="{{ old('email') }}"
+                                class="{{ $errors->has('email') ? 'border-red-500 ' : '' }} w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400">
                             @error('email')
                             <span class="text-red-500 text-sm ps-4">{{ $message }}</span>
                             @enderror
@@ -51,14 +51,14 @@
 
                         <div class="relative h-14">
                             <input placeholder="Password" type="password" id="password" name="password"
-                                class="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400 ">
+                                class="{{ $errors->has('password') ? 'border-red-500 ' : '' }} w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400 ">
                             @error('password')
                             <span class="text-red-500 text-sm ps-4">{{ $message }}</span>
                             @enderror
                             <div
                                 class="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5 justify-center text-center">
-                                <i class="fa-regular fa-eye  h-4 w-5 text-purple-700  cursor-pointer"></i>
-                                <i class="fa-regular fa-eye-slash h-4 w-5 text-purple-700  cursor-pointer"
+                                <i class="fa-regular fa-eye  h-4 w-5 text-purple-700 cursor-pointer mb-[6px]"></i>
+                                <i class="fa-regular fa-eye-slash h-4 w-5 text-purple-700  cursor-pointer mb-[6px]"
                                     style="display: none;"></i>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                         <div class="flex items-center justify-between">
 
                             <div class="text-sm ml-auto">
-                                <a href="{{ route("forgotPassword") }}" class="text-purple-700 hover:text-purple-600">
+                                <a href="{{ route("password.request") }}" class="text-purple-700 hover:text-purple-600">
                                     Forgot your password?
                                 </a>
                             </div>
@@ -134,6 +134,13 @@
     </div>
     </div>
     </div>
+
+    @session('success')
+    <div class="mt-3 text-green-400">
+        {{ $value }}
+    </div>
+    @endsession
+
     <footer class="bg-transparent absolute w-full bottom-0 left-0 z-30">
         <div class="container p-5 mx-auto  flex items-center justify-between ">
             <div class="flex mr-auto">
