@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - TailAdmin</title>
+    <title>@yield("title")</title>
+    <!-- font awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <link href="{{ asset('css/dashboard/admin/app.css') }}" rel="stylesheet">
 
 </head>
@@ -25,11 +27,10 @@
             @include('dashboard.admin.partials.header')
 
             <!-- Main Content Area -->
-            <main class="flex-1 overflow-y-auto bg-gray-50 p-6">
+            <main class="flex-1 overflow-y-auto bg-gray-50 p-4">
 
-                <div class="bg-white p-6 rounded-xl shadow-card">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Tableau de bord</h2>
-                    <p class="text-gray-500">Cette zone a été améliorée avec des exemples de cartes statistiques.</p>
+                <div class="bg-white p-6 rounded-xl shadow-card h-full overflow-y-auto">
+                    @yield('content')
                 </div>
             </main>
         </div>

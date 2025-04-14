@@ -26,10 +26,7 @@
 
 <body>
 
-
     @yield("form")
-
-
 
     <script src="{{ asset('js/Auth/auth.js') }}"></script>
 </body>
