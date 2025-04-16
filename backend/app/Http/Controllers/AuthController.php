@@ -44,7 +44,7 @@ class AuthController extends Controller
     {
 
         if (auth()->attempt($request->only('email', 'password'))) {
-            return redirect("/")->with('success', 'Login successful.');
+            return redirect()->route('admin.dashboard')->with('success', 'Login successful.');
         }
 
         return back()->withErrors([

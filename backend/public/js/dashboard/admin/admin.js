@@ -33,3 +33,12 @@ document.addEventListener("click", (event) => {
         profileDropdown?.classList.remove("dropdown-open");
     }
 });
+
+const links = document.querySelectorAll('.sidebar-item');
+
+  links.forEach(link => {
+    link.addEventListener('click', function () {
+      links.forEach(l => l.classList.remove('active-item')); // retirer 'active' de tous
+      this.classList.add('active-item'); // ajouter à l'élément cliqué
+    });
+  });

@@ -15,4 +15,21 @@ class AdminDashboardController extends Controller
         $users = User::paginate(8);
         return view('dashboard.admin.pages.users', compact('users'));
     }
+
+    public function activerOrDesactiver(string $id)
+    {
+
+        $user = User::find($id);
+
+        if ($user->status === 'active') {
+            $user->status = 'inactive';
+            $user->save();
+
+        } elseif ($user->status === 'inactive') {
+            $user->status = 'active';
+            $user->save();
+
+        }
+        return redirect()->route('admin.users')->with('success', 'User status updated successfully.');
+    }
 }

@@ -10,7 +10,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <link href="{{ asset('css/dashboard/admin/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard/admin/admin.css') }}" rel="stylesheet">
 
 </head>
 
@@ -35,7 +35,7 @@
             </main>
         </div>
     </div>
-    <script src="{{ asset('js/dashboard/admin/app.js') }}"></script>
+    <script src="{{ asset('js/dashboard/admin/admin.js') }}"></script>
 </body>
 
 </html>
