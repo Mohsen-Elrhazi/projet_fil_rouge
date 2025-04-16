@@ -29,7 +29,7 @@
             <!-- Main Content Area -->
             <main class="flex-1 overflow-y-auto bg-gray-50 p-4">
 
-                <div class="bg-white p-6 rounded-xl shadow-card h-full overflow-y-auto">
+                <div class="bg-white p-2 rounded-xl shadow-card h-full overflow-y-auto">
                     @yield('content')
                 </div>
             </main>

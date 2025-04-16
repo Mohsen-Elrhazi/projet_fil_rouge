@@ -32,4 +32,8 @@ class AdminDashboardController extends Controller
         }
         return redirect()->route('admin.users')->with('success', 'User status updated successfully.');
     }
+
+    public function profile(){
+        return view('dashboard.admin.pages.profile');
+    }
 }

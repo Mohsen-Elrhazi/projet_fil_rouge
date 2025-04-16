@@ -24,6 +24,7 @@ Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
 
 
 Route::get('/forgot-password', [AuthController::class, 'forgotPasswordForm'])->name('password.request');
@@ -35,4 +36,5 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 // route vers dashboard admin
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/users', [AdminDashboardController::class, 'manageUsers'])->name('admin.users');
+    Route::get('/admin/profile', [AdminDashboardController::class, 'profile'])->name('admin.profile');
     Route::get('/admin/users/{id}', [AdminDashboardController::class, 'activerOrDesactiver'])->name('admin.users.activerOrDesactiver');

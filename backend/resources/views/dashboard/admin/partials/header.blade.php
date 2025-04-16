@@ -1,5 +1,5 @@
 <header class="bg-white shadow-sm z-20 border-b">
-    <div class="flex items-center justify-between px-6 py-4">
+    <div class="flex items-center justify-between px-6 py-3">
         <!-- Left side: Toggle and Search -->
         <div class="flex items-center">
             <button id="sidebar-toggle" class="sidebar-toggle focus:outline-none">
@@ -66,15 +66,15 @@
                     <div class="py-2">
                         <ul>
                             <li>
-                                <a href="" class="dropdown-item">
+                                <a href="{{ route('admin.profile') }}" class="dropdown-item">
                                     <i class="fas fa-user-circle"></i>
-                                    <span>Modifier le profil</span>
+                                    <span>Edit profile</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="" class="dropdown-item">
                                     <i class="fas fa-cog"></i>
-                                    <span>Paramètres du compte</span>
+                                    <span>Account settings</span>
                                 </a>
                             </li>
                             <li>
@@ -86,16 +86,17 @@
                         </ul>
                     </div>
                     <div class="border-t py-2">
-                        <form method="POST" action="">
+                        <form method="POST" action="{{route('logout')}}">
                             @csrf
                             <button type="submit" class="dropdown-item text-red-500 w-full text-left">
                                 <i class="fas fa-sign-out-alt"></i>
-                                <span>Se déconnecter</span>
+                                <span>Logout</span>
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
+            <!-- fin profile -->
         </div>
     </div>
 </header>

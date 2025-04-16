@@ -97,5 +97,11 @@ class AuthController extends Controller
             : back()->withErrors(['email' => [__($status)]]);
     }
 
+    // methode logout
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login')->with('success', 'Logout successful.');
+    }
 
 }
