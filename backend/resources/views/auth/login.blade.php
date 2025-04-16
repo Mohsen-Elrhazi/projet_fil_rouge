@@ -17,9 +17,30 @@
     <!-- component -->
     <div
         class="bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden">
-
     </div>
+
     <div class="relative   min-h-screen  sm:flex sm:flex-row  justify-center bg-transparent rounded-3xl shadow-xl">
+
+        <!-- Messages de session stylisés -->
+        <!-- @if (session('success') || session('error')) -->
+        <div class="fixed top-5 right-5 z-50" id="session-messages">
+            @if (session('success'))
+            <div class="bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg mb-3 relative overflow-hidden">
+                {{ session('success') }}
+                <div class="absolute bottom-0 left-0 h-1 bg-green-300 progress-bar"></div>
+            </div>
+            @endif
+
+            @if (session('error'))
+            <div class="bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg relative overflow-hidden">
+                {{ session('error') }}
+                <div class="absolute bottom-0 left-0 h-1 bg-red-400 progress-bar"></div>
+            </div>
+            @endif
+        </div>
+
+        <!-- @endif -->
+        <!-- Fin messages de session stylisés -->
         <div class="flex-col flex  self-center lg:px-14 sm:max-w-4xl xl:max-w-md  z-10">
             <div class="self-start hidden lg:flex flex-col  text-gray-300">
 
@@ -79,14 +100,14 @@
                             </button>
                         </div>
                 </form>
-                <div class="flex items-center justify-center space-x-2 my-5">
+                <!-- <div class="flex items-center justify-center space-x-2 my-5">
                     <span class="h-px w-16 bg-gray-400"></span>
                     <span class="text-gray-400 font-normal">or</span>
                     <span class="h-px w-16 bg-gray-400"></span>
                 </div>
-                <div class="flex justify-center gap-5 w-full ">
+                <div class="flex justify-center gap-5 w-full "> -->
 
-                    <button type="submit"
+                <!-- <button type="submit"
                         class="w-full flex items-center justify-center mb-6 md:mb-0 border border-gray-300 hover:border-gray-900 hover:bg-gray-900 text-sm text-gray-500 p-3  rounded-lg tracking-wide font-medium  cursor-pointer transition ease-in duration-500">
                         <svg class="w-4 mr-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path fill="#EA4335"
@@ -98,11 +119,10 @@
                             <path fill="#FBBC05"
                                 d="M5.277 14.268A7.12 7.12 0 0 1 4.909 12c0-.782.125-1.533.357-2.235L1.24 6.65A11.934 11.934 0 0 0 0 12c0 1.92.445 3.73 1.237 5.335l4.04-3.067Z" />
                         </svg>
-                        <!-- <svg class="w-4" fill="#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.99 13.9v-3.72h9.36c.14.63.25 1.22.25 2.05 0 5.71-3.83 9.77-9.6 9.77-5.52 0-10-4.48-10-10S6.48 2 12 2c2.7 0 4.96.99 6.69 2.61l-2.84 2.76c-.72-.68-1.98-1.48-3.85-1.48-3.31 0-6.01 2.75-6.01 6.12s2.7 6.12 6.01 6.12c3.83 0 5.24-2.65 5.5-4.22h-5.51v-.01Z"></path></svg> -->
                         <span>Google</span>
-                    </button>
+                    </button> -->
 
-                    <button type="submit"
+                <!-- <button type="submit"
                         class="w-full flex items-center justify-center mb-6 md:mb-0 border border-gray-300 hover:border-gray-900 hover:bg-gray-900 text-sm text-gray-500 p-3  rounded-lg tracking-wide font-medium  cursor-pointer transition ease-in duration-500 px-">
                         <svg class="w-4 mr-2" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100"
                             xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
@@ -117,15 +137,14 @@
                                     style="fill:#f1f1f1" />
                             </g>
                         </svg>
-                        <!-- <svg class="w-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" fill-rule="evenodd" d="M9.945 22v-8.834H7V9.485h2.945V6.54c0-3.043 1.926-4.54 4.64-4.54 1.3 0 2.418.097 2.744.14v3.18h-1.883c-1.476 0-1.82.703-1.82 1.732v2.433h3.68l-.736 3.68h-2.944L13.685 22"></path></svg> -->
                         <span>Facebook</span>
-                    </button>
+                    </button> -->
 
-                </div>
+                <!-- </div> -->
             </div>
             <div class="mt-7 text-center text-gray-500 text-sm">
                 <span>
-                    Copyright © 2024-205
+                    Copyright © 2024-2025
                     <a href="https://codepen.io/uidesignhub" rel="" target="_blank" title="Codepen aji"
                         class="text-purple-500 hover:text-purple-600 ">ChatApp</a>
                 </span>
@@ -135,11 +154,7 @@
     </div>
     </div>
 
-    @session('success')
-    <div class="mt-3 text-green-400">
-        {{ $value }}
-    </div>
-    @endsession
+
 
     <footer class="bg-transparent absolute w-full bottom-0 left-0 z-30">
         <div class="container p-5 mx-auto  flex items-center justify-between ">

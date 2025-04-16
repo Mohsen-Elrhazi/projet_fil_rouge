@@ -34,7 +34,7 @@ Route::get('/reset-password/{token}', [AuthController::class, 'resetPasswordForm
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
 // route vers dashboard admin
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard')->middleware('IsAdmin');
     Route::get('/admin/users', [AdminDashboardController::class, 'manageUsers'])->name('admin.users');
     Route::get('/admin/profile', [AdminDashboardController::class, 'profile'])->name('admin.profile');
     Route::get('/admin/users/{id}', [AdminDashboardController::class, 'activerOrDesactiver'])->name('admin.users.activerOrDesactiver');
