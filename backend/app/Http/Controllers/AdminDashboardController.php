@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminDashboardController extends Controller
 {
@@ -34,6 +35,19 @@ class AdminDashboardController extends Controller
     }
 
     public function profile(){
-        return view('dashboard.admin.pages.profile');
+        $user=Auth::User();
+        
+        // if($user->profile){
+        // $profile= $user->profile;
+        //  }
+         
+    return view('dashboard.admin.pages.profile', compact('user'));
     }
+
+    public function account(Request $request){
+        $user= Auth::User();
+        
+        return view('dashboard.admin.pages.account-settings',compact('user'));
+    }
+    
 }

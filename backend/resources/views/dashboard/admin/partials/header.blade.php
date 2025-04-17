@@ -72,7 +72,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="dropdown-item">
+                                <a href="{{ route('admin.account') }}" class="dropdown-item">
                                     <i class="fas fa-cog"></i>
                                     <span>Account settings</span>
                                 </a>

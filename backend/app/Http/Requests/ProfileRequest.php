@@ -24,11 +24,11 @@ class ProfileRequest extends FormRequest
         return [
             "name" => "string",
             "email" => "email:dns,rfc|unique:users,email,".$this->user()->id,
-            "avatar" => "nullable|image|mimes:jpeg,png,jpg|max:2048",
-            "phone" => "nullable|string|max:20",
-            "adress" => "nullable|string",
-            "birth_date" => "nullable|date",
-            "bio" => "nullable|string",
+            "avatar" => "image|mimes:jpeg,png,jpg|max:2048",
+            "phone" => "string|max:20",
+            "adress" => "string",
+            "birth_date" => "date",
+            "bio" => "string",
         ];
     }
 
@@ -44,6 +44,7 @@ class ProfileRequest extends FormRequest
             "phone.max" => "Le numéro de téléphone ne doit pas dépasser 20 caractères.",
             "adress.string" => "L'adresse doit être une chaîne de caractères.",
             "birth_date.date" => "La date de naissance doit être une date.",
+            "bio.string" =>  "bio doit être une chaîne de caractères.",
         ];
     }
 }

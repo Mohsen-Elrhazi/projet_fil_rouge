@@ -16,24 +16,27 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function storeOrUpdate(ProfileRequest $request)
+    public function update(Request $request)
     {
-        $user = Auth::user();
-
+        $user = Auth::User();
+        
         if ($user->profile) {
             $profile = $user->profile;
         } else {
             $profile = new Profile();
             $profile->user_id = $user->id;
         }
+        
+        $this->authorize('update',$profile);
+
 
         // Update user information
-        if ($request->has('name')) {
+        if ($request->filled('name')) {
             $user->name = $request->name;
         }
-        if ($request->has('email')) {
-            $user->email = $request->email;
-        }
+        // if ($request->has('email')) {
+        //     $user->email = $request->email;
+        // }
         // if ($request->has('password')) {
         //     $user->password = Hash::make($request->password);
         // }
@@ -44,16 +47,17 @@ class ProfileController extends Controller
         $profile->phone = $request->phone; 
         $profile->address = $request->address; 
         $profile->birth_date = $request->birth_date; 
+        $profile->bio= $request->bio;
 
-        if ($request->hasFile('image')) {
-            // Delete the old image if it exists
-            if ($profile->image && Storage::exists($profile->image)) {
-                Storage::delete($profile->image);
-            }
-            $image = $request->file('image');
-            $path = $image->store('public/profiles');
-            $profile->image = $path;
-        }
+        // if ($request->hasFile('image')) {
+        //     // Delete the old image if it exists
+        //     if ($profile->image && Storage::exists($profile->image)) {
+        //         Storage::delete($profile->image);
+        //     }
+        //     $image = $request->file('image');
+        //     $path = $image->store('public/profiles');
+        //     $profile->image = $path;
+        // }
 
         $profile->save();
         
@@ -73,10 +77,8 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Profile $profile)
-    {
-        //
-    }
+  
+     
 
 
 

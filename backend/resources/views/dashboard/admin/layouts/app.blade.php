@@ -35,6 +35,16 @@
             </main>
         </div>
     </div>
+
+    <!-- Spinner de chargement avec effet de blur -->
+    <div id="loader" class="loader fixed inset-0 z-50 bg-gray-100/20 flex items-center justify-center">
+        <div class="spinner border-4 border-indigo-500 border-t-transparent rounded-full w-12 h-12 animate-spin"></div>
+    </div>
+
+
+
+
+
     <script src="{{ asset('js/dashboard/admin/admin.js') }}"></script>
 </body>
 

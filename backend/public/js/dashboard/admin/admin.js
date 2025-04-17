@@ -42,3 +42,19 @@ const links = document.querySelectorAll('.sidebar-item');
       this.classList.add('active-item'); // ajouter à l'élément cliqué
     });
   });
+
+
+  // spinner
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('loader').style.display = 'none';
+  });
+  
+  document.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+        document.getElementById('loader').style.display = 'flex';
+  
+        window.onload = function () {
+            document.getElementById('loader').style.display = 'none';
+        };
+    });
+  });

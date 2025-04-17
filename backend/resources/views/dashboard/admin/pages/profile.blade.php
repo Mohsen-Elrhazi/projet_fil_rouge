@@ -4,248 +4,292 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
-    <!-- Profile card -->
-    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-        <div class="px-6 py-6">
-            <div class="flex flex-row items-center gap-6">
-                <!-- Avatar -->
+    <!-- Profile card with modern design -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+        <!-- Header with subtle gradient background -->
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-10 relative">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-6 relative z-10">
+                <!-- Avatar with enhanced styling -->
                 <div class="relative">
                     <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
                         alt="Profile photo"
-                        class="w-24 h-24 rounded-full object-cover border-2 border-gray-200 shadow-sm bg-white">
+                        class="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-white shadow-lg bg-white">
+                    <div
+                        class="absolute -bottom-2 -right-2 bg-green-500 w-6 h-6 rounded-full border-2 border-white flex items-center justify-center">
+                        <i class="fas fa-check text-white text-xs"></i>
+                    </div>
                 </div>
 
-                <!-- Basic information -->
-                <div class="text-left">
-                    <h2 class="text-2xl font-bold text-gray-800">John Doe</h2>
-                    <!-- <p class="text-gray-600">Member since March 15, 2023</p> -->
-                    <p class="text-red-500">Admin</p>
+                <!-- User information with better typography -->
+                <div class="text-center md:text-left text-white">
+                    <h2 class="text-2xl md:text-3xl font-bold">{{ $user->name }}</h2>
+                    <div class="inline-flex items-center bg-white bg-opacity-20 px-3 py-1 rounded-full mt-2">
+                        <i class="fas fa-user-shield mr-2 text-red-500"></i>
+                        <span class="font-medium text-red-500">{{ $user->role->name }}</span>
+                    </div>
+                    <p class="text-indigo-100 mt-2 opacity-80">Member since {{ date('F Y') }}</p>
                 </div>
 
-                <!-- Edit button repositioned -->
-                <div class="ml-auto">
+                <!-- Edit button repositioned and restyled -->
+                <div class="md:ml-auto">
                     <button type="button" data-modal-target="editProfileModal" data-modal-toggle="editProfileModal"
-                        class="flex items-center rounded-lg bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-200 transition duration-200">
-                        <i class="fas fa-edit mr-2"></i>
+                        class="flex items-center rounded-lg bg-white px-4 py-2.5 text-base font-medium text-indigo-700 hover:bg-indigo-50 transition duration-300 shadow-md">
+                        <i class="fas fa-user-edit mr-2"></i>
                         Edit Profile
                     </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Separator -->
-        <div class="border-t border-gray-200"></div>
-
-        <!-- Profile details -->
-        <div class="p-6">
-            <h3 class="text-lg font-semibold text-gray-800 mb-4">Personal Information</h3>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                <!-- Phone -->
-                <div>
-                    <div class="flex items-center mb-2">
-                        <i class="fas fa-phone text-gray-500 mr-2 w-5"></i>
-                        <span class="text-gray-700 font-medium">Phone</span>
-                    </div>
-                    <p class="text-gray-600 ml-7">+212 6XX XX XX XX</p>
-                </div>
-
-                <!-- Address -->
-                <div>
-                    <div class="flex items-center mb-2">
-                        <i class="fas fa-map-marker-alt text-gray-500 mr-2 w-5"></i>
-                        <span class="text-gray-700 font-medium">Address</span>
-                    </div>
-                    <p class="text-gray-600 ml-7">123, Example Street, City, Country</p>
-                </div>
-
-                <!-- Date of birth -->
-                <div>
-                    <div class="flex items-center mb-2">
-                        <i class="fas fa-calendar-alt text-gray-500 mr-2 w-5"></i>
-                        <span class="text-gray-700 font-medium">Date of Birth</span>
-                    </div>
-                    <p class="text-gray-600 ml-7">05/15/1985</p>
-                </div>
-
-                <!-- Email -->
-                <div>
-                    <div class="flex items-center mb-2">
-                        <i class="fas fa-envelope text-gray-500 mr-2 w-5"></i>
-                        <span class="text-gray-700 font-medium">Email</span>
-                    </div>
-                    <p class="text-gray-600 ml-7">johndoe@example.com</p>
-                </div>
-            </div>
-
-            <!-- Biography -->
-            <div class="mt-8">
-                <div class="flex items-center mb-3">
-                    <i class="fas fa-user text-gray-500 mr-2 w-5"></i>
-                    <span class="text-gray-700 font-medium">About Me</span>
-                </div>
-                <p class="text-gray-600 ml-7">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur.
-                </p>
+            <!-- Decorative elements -->
+            <div class="absolute bottom-0 left-0 w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="w-full h-16 text-white"
+                    fill="currentColor" preserveAspectRatio="none">
+                    <path
+                        d="M0,288L48,272C96,256,192,224,288,213.3C384,203,480,213,576,229.3C672,245,768,267,864,261.3C960,256,1056,224,1152,208C1248,192,1344,192,1392,192L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                    </path>
+                </svg>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Edit Modal with Flowbite - Styled -->
-<div id="editProfileModal" tabindex="-1" aria-hidden="true"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-xl shadow-xl">
-            <!-- Modal header -->
-            <div class="p-4 md:p-5 rounded-t-xl border-b border-gray-200 bg-gray-50">
-                <div class="flex items-center justify-between">
-                    <h3 class="text-xl font-semibold text-gray-800">
-                        Edit My Profile
-                    </h3>
-                    <button type="button"
-                        class="text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center transition duration-200"
-                        data-modal-hide="editProfileModal">
-                        <i class="fas fa-times"></i>
-                        <span class="sr-only">Close</span>
-                    </button>
+        <!-- Profile details with improved layout -->
+        <div class="p-8">
+            <div class="flex items-center mb-6">
+                <div class="flex-shrink-0 bg-indigo-100 p-2 rounded-full">
+                    <i class="fas fa-id-card text-indigo-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 ml-3">Personal Information</h3>
+            </div>
+
+            <!-- Info cards with enhanced visual appeal -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Phone Card -->
+                <div class="bg-gray-50 rounded-xl border border-gray-100 p-5 hover:shadow-md transition duration-300">
+                    <div class="flex items-center">
+                        <div class="bg-indigo-100 p-3 rounded-full">
+                            <i class="fas fa-phone text-indigo-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Phone</p>
+                            @if(isset($user->profile))
+                            <p class="text-lg font-medium text-gray-800">{{ $user->profile->phone }}</p>
+                            @else
+                            <p class="text-lg font-medium text-gray-400">Not provided</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Address Card -->
+                <div class="bg-gray-50 rounded-xl border border-gray-100 p-5 hover:shadow-md transition duration-300">
+                    <div class="flex items-center">
+                        <div class="bg-indigo-100 p-3 rounded-full">
+                            <i class="fas fa-map-marker-alt text-indigo-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Address</p>
+                            @if(isset($user->profile))
+                            <p class="text-lg font-medium text-gray-800">{{ $user->profile->address }}</p>
+                            @else
+                            <p class="text-lg font-medium text-gray-400">Not provided</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date of birth Card -->
+                <div class="bg-gray-50 rounded-xl border border-gray-100 p-5 hover:shadow-md transition duration-300">
+                    <div class="flex items-center">
+                        <div class="bg-indigo-100 p-3 rounded-full">
+                            <i class="fas fa-birthday-cake text-indigo-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Date of Birth</p>
+                            @if(isset($user->profile))
+                            <p class="text-lg font-medium text-gray-800">{{ $user->profile->birth_date }}</p>
+                            @else
+                            <p class="text-lg font-medium text-gray-400">Not provided</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email Card (if needed) -->
+                <div class="bg-gray-50 rounded-xl border border-gray-100 p-5 hover:shadow-md transition duration-300">
+                    <div class="flex items-center">
+                        <div class="bg-indigo-100 p-3 rounded-full">
+                            <i class="fas fa-envelope text-indigo-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Email</p>
+                            <p class="text-lg font-medium text-gray-800">{{ $user->email ?? 'example@email.com' }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Modal body -->
-            <div class="p-6">
-                <form action="" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-
-                    <!-- Avatar section -->
-                    <div class="mb-6 flex flex-col items-center">
-                        <div class="relative inline-block">
-                            <img id="preview-avatar"
-                                src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-                                alt="Profile photo"
-                                class="w-28 h-28 rounded-full object-cover border-2 border-gray-300 shadow-md">
-                            <label for="avatar"
-                                class="absolute bottom-0 right-0 bg-indigo-500 hover:bg-indigo-600 text-white rounded-full p-2 cursor-pointer shadow-md transition duration-200">
-                                <i class="fas fa-camera"></i>
-                            </label>
-                            <input type="file" name="avatar" id="avatar" class="hidden" accept="image/*">
-                        </div>
-                        <p class="mt-2 text-sm text-gray-500">Click on the camera icon to change your photo</p>
+            <!-- Biography with improved styling -->
+            <div class="mt-8 bg-gray-50 rounded-xl border border-gray-100 p-6">
+                <div class="flex items-center mb-4">
+                    <div class="bg-indigo-100 p-3 rounded-full">
+                        <i class="fas fa-quote-left text-indigo-600"></i>
                     </div>
-
-                    <!-- Form in 2 columns -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <!-- Name -->
-                        <div class="mb-4">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Full Name</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <i class="fas fa-user text-gray-500"></i>
-                                </div>
-                                <input type="text" id="name" name="name" value="John Doe"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full ps-10 p-2.5 transition duration-200"
-                                    placeholder="Your full name">
-                            </div>
-                        </div>
-
-                        <!-- Phone -->
-                        <div class="mb-4">
-                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <i class="fas fa-phone text-gray-500"></i>
-                                </div>
-                                <input type="tel" id="phone" name="phone" value="+212 6XX XX XX XX"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full ps-10 p-2.5 transition duration-200"
-                                    placeholder="+212 6XX XX XX XX">
-                            </div>
-                        </div>
-
-                        <!-- Address -->
-                        <div class="mb-4">
-                            <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <i class="fas fa-map-marker-alt text-gray-500"></i>
-                                </div>
-                                <input type="text" id="address" name="address"
-                                    value="123, Example Street, City, Country"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full ps-10 p-2.5 transition duration-200"
-                                    placeholder="Your complete address">
-                            </div>
-                        </div>
-
-                        <!-- Date of birth -->
-                        <div class="mb-4">
-                            <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Date of
-                                Birth</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <i class="fas fa-calendar text-gray-500"></i>
-                                </div>
-                                <input datepicker datepicker-format="mm/dd/yyyy" type="text" id="birth_date"
-                                    value="05/15/1985" name="birth_date"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full ps-10 p-2.5 transition duration-200"
-                                    placeholder="MM/DD/YYYY">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Biography -->
-                    <div class="mb-6">
-                        <label for="bio" class="block mb-2 text-sm font-medium text-gray-900">Biography</label>
-                        <div class="relative">
-                            <div class="absolute top-3 start-3 pointer-events-none">
-                                <i class="fas fa-quote-left text-gray-500"></i>
-                            </div>
-                            <textarea id="bio" name="bio" rows="4"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 ps-10 transition duration-200"
-                                placeholder="Tell us about yourself...">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</textarea>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b bg-gray-50">
-                <button data-modal-hide="editProfileModal" type="button"
-                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-indigo-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 me-3 shadow-sm transition duration-200">
-                    Cancel
-                </button>
-                <button type="button"
-                    class="text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center shadow-md transition duration-200">
-                    Save Changes
-                </button>
+                    <h4 class="text-lg font-semibold text-gray-800 ml-3">About Me</h4>
+                </div>
+                @if(isset($user->profile) && $user->profile->bio)
+                <p class="text-gray-700 leading-relaxed">{{ $user->profile->bio }}</p>
+                @else
+                <div class="flex items-center justify-center h-24 text-gray-400">
+                    <i class="fas fa-edit mr-2"></i>
+                    <p>No biography provided. Click "Edit Profile" to add information about yourself.</p>
+                </div>
+                @endif
             </div>
         </div>
     </div>
+
+    <!-- Enhanced Edit Modal -->
+    <div id="editProfileModal" tabindex="-1" aria-hidden="true"
+        class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full  bg-opacity-100 overflow-auto">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-xl shadow-xl animate-fadeIn">
+                <!-- Modal header -->
+                <div class="px-6 py-4 rounded-t-xl border-b border-gray-200 bg-indigo-50">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold text-indigo-800 flex items-center">
+                            <i class="fas fa-user-edit mr-2 text-indigo-600"></i>
+                            Edit My Profile
+                        </h3>
+                        <button type="button"
+                            class="text-gray-500 bg-white hover:bg-gray-200 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center transition duration-200"
+                            data-modal-hide="editProfileModal">
+                            <i class="fas fa-times"></i>
+                            <span class="sr-only">Close</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modal body with improved styling -->
+                <div class="p-6">
+                    <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+                        <!-- Avatar section with enhanced UX -->
+                        <div class="mb-8 flex flex-col items-center">
+                            <div class="relative inline-block group">
+                                <img id="preview-avatar"
+                                    src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+                                    alt="Profile photo"
+                                    class="w-32 h-32 rounded-full object-cover border-4 border-indigo-100 shadow-md group-hover:opacity-90 transition duration-300">
+                                <div
+                                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 rounded-full transition duration-300 flex items-center justify-center">
+                                    <label for="avatar"
+                                        class="absolute bottom-0 right-0 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full p-3 cursor-pointer shadow-lg transition duration-200 transform hover:scale-105">
+                                        <i class="fas fa-camera"></i>
+                                    </label>
+                                </div>
+                                <input type="file" name="avatar" id="avatar" class="hidden" accept="image/*">
+                            </div>
+                            <p class="mt-3 text-sm text-gray-500 flex items-center">
+                                <i class="fas fa-info-circle mr-1 text-indigo-400"></i>
+                                Click the camera icon to change your photo
+                            </p>
+                        </div>
+
+                        <!-- Form in 2 columns with improved inputs -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Name -->
+                            <div class="mb-1">
+                                <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Full Name</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <i class="fas fa-user text-indigo-400"></i>
+                                    </div>
+                                    <input type="text" id="name" name="name" value="{{ $user->name ?? '' }}"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full ps-10 p-3 transition duration-200"
+                                        placeholder="Your full name">
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="mb-1">
+                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-700">Phone</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <i class="fas fa-phone text-indigo-400"></i>
+                                    </div>
+                                    <input type="tel" id="phone" name="phone"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full ps-10 p-3 transition duration-200"
+                                        placeholder="+212 6XX XX XX XX" value="{{ $user->profile->phone ?? '' }}">
+                                </div>
+                            </div>
+
+                            <!-- Address -->
+                            <div class="mb-1">
+                                <label for="address"
+                                    class="block mb-2 text-sm font-medium text-gray-700">Address</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <i class="fas fa-map-marker-alt text-indigo-400"></i>
+                                    </div>
+                                    <input type="text" id="address" name="address"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full ps-10 p-3 transition duration-200"
+                                        placeholder="Your complete address" value="{{ $user->profile->address ?? '' }}">
+                                </div>
+                            </div>
+
+                            <!-- Date of birth -->
+                            <div class="mb-1">
+                                <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-700">Date of
+                                    Birth</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <i class="fas fa-birthday-cake text-indigo-400"></i>
+                                    </div>
+                                    <input type="date" id="birth_date" name="birth_date"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full ps-10 p-3 transition duration-200"
+                                        placeholder="MM/DD/YYYY" value="{{ $user->profile->birth_date ?? '' }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Biography with enhanced UI -->
+                        <div class="mt-6">
+                            <label for="bio" class="block mb-2 text-sm font-medium text-gray-700">Biography</label>
+                            <div class="relative">
+                                <div class="absolute top-3 start-3 pointer-events-none">
+                                    <i class="fas fa-quote-left text-indigo-400"></i>
+                                </div>
+                                <textarea id="bio" name="bio" rows="4"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 ps-10 transition duration-200"
+                                    placeholder="Tell us about yourself...">{{ $user->profile->bio ?? '' }}</textarea>
+                            </div>
+                            <p class="mt-1 text-xs text-gray-500 flex items-center">
+                                <i class="fas fa-lightbulb mr-1 text-amber-400"></i>
+                                Share a brief description about yourself, your interests or professional background
+                            </p>
+                        </div>
+
+                        <!-- Modal footer with improved buttons -->
+                        <div class="mt-8 pt-4 flex items-center justify-end border-t border-gray-200">
+                            <button data-modal-hide="editProfileModal" type="button"
+                                class="flex items-center text-gray-700 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg border border-gray-300 text-sm font-medium px-5 py-2.5 me-3 transition duration-300">
+                                <i class="fas fa-times mr-1.5"></i>
+                                Cancel
+                            </button>
+                            <button type="submit"
+                                class="flex items-center text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 transition duration-300">
+                                <i class="fas fa-save mr-1.5"></i>
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
-
-<!-- Script for avatar preview -->
-<!-- <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Image preview
-    document.getElementById('avatar').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('preview-avatar').src = e.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-});
-</script> -->
-
-<!-- Include Flowbite JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/datepicker.min.js"></script>
 @endsection

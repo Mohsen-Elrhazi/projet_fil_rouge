@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,4 +38,9 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard')->middleware('IsAdmin');
     Route::get('/admin/users', [AdminDashboardController::class, 'manageUsers'])->name('admin.users');
     Route::get('/admin/profile', [AdminDashboardController::class, 'profile'])->name('admin.profile');
+    Route::get("/account-settings",[AdminDashboardController::class, 'account'])->name('admin.account');
+    
     Route::get('/admin/users/{id}', [AdminDashboardController::class, 'activerOrDesactiver'])->name('admin.users.activerOrDesactiver');
+
+// update profile
+    Route::put('/admin/profile/update', [ProfileController::class, 'update'])->name('admin.profile.update');
