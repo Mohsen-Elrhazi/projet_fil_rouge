@@ -31,12 +31,13 @@
             <div class="relative">
                 <div class="flex items-center cursor-pointer" id="profile-dropdown-toggle">
                     <div class="profile-avatar mr-2">
-                        <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-                            alt="Photo de profil" class="w-full h-full object-cover">
+                        <img src="{{asset('storage/' . $user->profile->avatar) }}" alt="Photo de profil"
+                            class="w-full h-full object-cover">
                     </div>
                     <div class="hidden md:block mr-2">
-                        <p class="text-sm font-medium">Musharof Chowdhury</p>
-                        <p class="text-xs text-gray-500">Admin</p>
+                        <p class="text-sm font-medium">{{ $user->name }}</p>
+                        <p class="bg-indigo-100 text-indigo-600 rounded-full px-2  py-0.5 text-sm font-medium">
+                            {{$user->role->name}}</p>
                     </div>
                     <div class="profile-toggle">
                         <i class="fas fa-chevron-down text-xs opacity-70"></i>
@@ -48,16 +49,16 @@
                     <div class="p-4 border-b border-gray-100">
                         <div class="flex items-center">
                             <div class="h-12 w-12 rounded-lg overflow-hidden border-2 border-gray-200 mr-3">
-                                <img src="/api/placeholder/48/48" alt="Photo de profil"
+                                <img src="{{asset('storage/' . $user->profile->avatar) }}" alt="Photo de profil"
                                     class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <p class="text-sm font-semibold text-gray-800">Musharof Chowdhury</p>
-                                <p class="text-xs text-gray-500">randomuser@pimjo.com</p>
+                                <p class="text-sm font-semibold text-gray-800">{{ $user->name }}</p>
+                                <p class="text-xs text-gray-500">{{ $user->email }}</p>
                                 <p class="text-xs mt-1">
                                     <span
                                         class="bg-indigo-100 text-indigo-600 rounded-full px-2 py-0.5 text-xs font-medium">
-                                        Admin
+                                        {{ $user->role->name }}
                                     </span>
                                 </p>
                             </div>
@@ -86,7 +87,7 @@
                         </ul>
                     </div>
                     <div class="border-t py-2">
-                        <form method="POST" action="{{route('logout')}}">
+                        <form method="POST" action="{{url('logout')}}">
                             @csrf
                             <button type="submit" class="dropdown-item text-red-500 w-full text-left">
                                 <i class="fas fa-sign-out-alt"></i>

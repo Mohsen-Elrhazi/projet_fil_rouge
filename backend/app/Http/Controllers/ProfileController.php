@@ -29,18 +29,11 @@ class ProfileController extends Controller
         
         $this->authorize('update',$profile);
 
-
         // Update user information
         if ($request->filled('name')) {
             $user->name = $request->name;
         }
-        // if ($request->has('email')) {
-        //     $user->email = $request->email;
-        // }
-        // if ($request->has('password')) {
-        //     $user->password = Hash::make($request->password);
-        // }
-
+  
         $user->save();
 
         // Update profile information
@@ -49,37 +42,21 @@ class ProfileController extends Controller
         $profile->birth_date = $request->birth_date; 
         $profile->bio= $request->bio;
 
-        // if ($request->hasFile('image')) {
-        //     // Delete the old image if it exists
-        //     if ($profile->image && Storage::exists($profile->image)) {
-        //         Storage::delete($profile->image);
-        //     }
-        //     $image = $request->file('image');
-        //     $path = $image->store('public/profiles');
-        //     $profile->image = $path;
-        // }
+        if ($request->hasFile('avatar')) {
+            // Delete the old image if it exists
+            if ($profile->avatar && Storage::exists($profile->avatar)) {
+                Storage::delete($profile->avatar);
+            }
+            $avatar = $request->file('avatar');
+            $avatarName = uniqid('avatar_') . '.' . $avatar->getClientOriginalExtension();
+            // Store the new image
+            $avatarPath = $avatar->storeAs('profiles', $avatarName, 'public');
+            $profile->avatar = $avatarPath;
+        }
 
         $profile->save();
         
         return redirect()->route('admin.profile')->with('success', 'Profile updated successfully.');
     }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Profile $profile)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-  
-     
-
-
 
 }

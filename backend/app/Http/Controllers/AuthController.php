@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
-
-
     public function registerForm()
     {
         return view('auth.register');
@@ -37,16 +35,18 @@ class AuthController extends Controller
             'role_id' => $role->id,
         ]);
 
-        return redirect("/login")->with('success', 'User created successfully. Please login.');
+        return redirect("/login")->with('success', 'Registration successful. Please login.');
+
     }
 
     public function login(LoginRequest $request)
     {
 
         if (auth()->attempt($request->only('email', 'password'))) {
-            return redirect()->route('admin.dashboard')->with('success', 'Login successful.');
+            return redirect()->route('admin.dashboard')->with('success', 'Login successful.');        
         }
 
+        
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
@@ -97,11 +97,12 @@ class AuthController extends Controller
             : back()->withErrors(['email' => [__($status)]]);
     }
 
+    
     // methode logout
     public function logout()
     {
         Auth::logout();
-        return redirect('/login')->with('success', 'Logout successful.');
+        return redirect()->route('login')->with('success', 'Logout successful.');
     }
 
 }

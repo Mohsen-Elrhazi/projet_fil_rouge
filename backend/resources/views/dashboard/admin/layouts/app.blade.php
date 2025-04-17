@@ -29,6 +29,22 @@
             <!-- Main Content Area -->
             <main class="flex-1 overflow-y-auto bg-gray-50 p-4">
 
+                <div class="fixed top-5 right-5 z-50" id="session-messages">
+                    @if (session('success'))
+                    <div class="bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg mb-3 relative overflow-hidden">
+                        {{ session('success') }}
+                        <div class="absolute bottom-0 left-0 h-1 bg-green-300 progress-bar"></div>
+                    </div>
+                    @endif
+
+                    @if (session('error'))
+                    <div class="bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg relative overflow-hidden">
+                        {{ session('error') }}
+                        <div class="absolute bottom-0 left-0 h-1 bg-red-400 progress-bar"></div>
+                    </div>
+                    @endif
+                </div>
+
                 <div class="bg-white p-2 rounded-xl shadow-card h-full overflow-y-auto">
                     @yield('content')
                 </div>

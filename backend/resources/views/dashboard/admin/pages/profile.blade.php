@@ -11,9 +11,10 @@
             <div class="flex flex-col md:flex-row items-center md:items-start gap-6 relative z-10">
                 <!-- Avatar with enhanced styling -->
                 <div class="relative">
-                    <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-                        alt="Profile photo"
+                    <!-- @if($user->profile->avatar) -->
+                    <img src="{{asset('storage/' . $user->profile->avatar) }}" alt="Profile photo"
                         class="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-white shadow-lg bg-white">
+                    <!-- @endif -->
                     <div
                         class="absolute -bottom-2 -right-2 bg-green-500 w-6 h-6 rounded-full border-2 border-white flex items-center justify-center">
                         <i class="fas fa-check text-white text-xs"></i>
@@ -27,7 +28,9 @@
                         <i class="fas fa-user-shield mr-2 text-red-500"></i>
                         <span class="font-medium text-red-500">{{ $user->role->name }}</span>
                     </div>
-                    <p class="text-indigo-100 mt-2 opacity-80">Member since {{ date('F Y') }}</p>
+                    <p class="text-indigo-100 mt-2 opacity-80">Member since
+                        {{$user->created_at->format("D M Y")}}
+                    </p>
                 </div>
 
                 <!-- Edit button repositioned and restyled -->
@@ -70,11 +73,11 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Phone</p>
-                            @if(isset($user->profile))
+                            <!-- @if(isset($user->profile)) -->
                             <p class="text-lg font-medium text-gray-800">{{ $user->profile->phone }}</p>
-                            @else
+                            <!-- @else
                             <p class="text-lg font-medium text-gray-400">Not provided</p>
-                            @endif
+                            @endif -->
                         </div>
                     </div>
                 </div>
@@ -171,7 +174,7 @@
 
                 <!-- Modal body with improved styling -->
                 <div class="p-6">
-                    <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('/admin/profile/update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -189,7 +192,7 @@
                                         <i class="fas fa-camera"></i>
                                     </label>
                                 </div>
-                                <input type="file" name="avatar" id="avatar" class="hidden" accept="image/*">
+                                <input type="file" name="avatar" id="avatar" class="hidden">
                             </div>
                             <p class="mt-3 text-sm text-gray-500 flex items-center">
                                 <i class="fas fa-info-circle mr-1 text-indigo-400"></i>

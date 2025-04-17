@@ -27,7 +27,7 @@
                         <i class="fas fa-user-shield mr-2 text-green-400"></i>
                         <span class="font-medium text-white">Manage your account security</span>
                     </div>
-                    <p class="text-indigo-100 mt-2 opacity-80">Last updated: {{ date('F Y') }}</p>
+                    <p class="text-indigo-100 mt-2 opacity-80">Last updated: {{$user->created_at->format("D M Y")}}</p>
                 </div>
 
                 <!-- Edit button repositioned and restyled -->
@@ -120,7 +120,7 @@
 
                 <!-- Modal body with improved styling -->
                 <div class="p-6">
-                    <form action="{{ route('update.account.settings') }}" method="POST">
+                    <form action="{{ url('/admin/account-settings/update') }}" method="POST">
                         @csrf
                         @method('PUT')
 

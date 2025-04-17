@@ -18,6 +18,7 @@
     });
 
 
+    // messages sessions
         const messages = document.querySelectorAll('#session-messages > div');
         messages.forEach(message => {
             const progressBar = message.querySelector('.progress-bar');
