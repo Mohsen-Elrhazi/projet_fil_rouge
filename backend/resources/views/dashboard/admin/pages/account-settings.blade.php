@@ -120,7 +120,7 @@
 
                 <!-- Modal body with improved styling -->
                 <div class="p-6">
-                    <form action="#" method="POST">
+                    <form action="{{ route('update.account.settings') }}" method="POST">
                         @csrf
                         @method('PUT')
 

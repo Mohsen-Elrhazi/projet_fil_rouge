@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,3 +45,6 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 
 // update profile
     Route::put('/admin/profile/update', [ProfileController::class, 'update'])->name('admin.profile.update');
+
+// update account settings
+Route::put('/account/settings/update',[UserController::class,'updateAccountSettings'])->name('update.account.settings');    
