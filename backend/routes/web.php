@@ -3,8 +3,12 @@
 use App\Http\Controllers\AccountSettingsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use Faker\Provider\HtmlLorem;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,9 +54,32 @@ Route::middleware(['IsAdmin'])->group(function () {
 
     
 
-// 
 
 
 // 
 Route::put('/user/profile/update', [ProfileController::class, 'update']);
 Route::put('/user/account-settings/update',[AccountSettingsController::class,'update']); 
+
+// les routs pour application
+Route::prefix('app')->group(function () {
+    Route::get('/', [HomeController::class, 'home'])->name('home');
+    // contacts
+    Route::prefix('contacts')->name('contacts.')->group(function () {
+        Route::get('/', [ContactController::class, 'index'])->name('index');
+        // Route::post('/', [ContactController::class, 'store'])->name('store');
+        // Route::get('/search', [ContactController::class, 'search'])->name('search');
+        // Route::delete('/{user}', [ContactController::class, 'destroy'])->name('remove');
+    });
+    
+    // Chat
+    Route::prefix('chat')->name('chat.')->group(function () {
+       // Discussions Privées
+       Route::prefix('discussions')->name('discussions.')->group(function () {
+         Route::get('/', [ChatController::class, 'index'])->name('index');
+         Route::get('/{conversation}', [ChatController::class, 'show'])->name('show');
+         Route::delete('/{conversation}', [ChatController::class, 'destroy'])->name('destroy');
+        
+       });
+    });
+});
+    

@@ -4,37 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+    <title>@yield('title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
     <div class="antialiased bg-gray-50 dark:bg-gray-900">
-        <!-- nav -->
-        <!-- end nav -->
 
-        <!-- aside -->
-        <!--end aside  -->
+        @include('app.partials.header')
+        @include('app.partials.sidebar')
 
         <main class="p-4 md:ml-16 pt-20 h-screen overflow-hidden">
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full h-full overflow-y-auto">
                 <!-- Premier élément avec contenu texte -->
                 <div class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 overflow-y-auto">
-                    <p class="p-3 text-sm sm:text-base">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae rem illum veniam omnis animi a
-                        dicta incidunt quaerat tenetur ut. Voluptate autem commodi nesciunt amet libero placeat id
-                        impedit quidem?
-                    </p>
-
+                    @yield('content1')
                 </div>
 
                 <!-- Deuxième élément -->
                 <div
                     class="md:col-span-2 lg:col-span-3 border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 overflow-y-auto">
-                    <p class="p-3 text-sm sm:text-base">Contenu de la colonne principale...</p>
+                    @yield('content2')
                 </div>
+
             </div>
         </main>
     </div>

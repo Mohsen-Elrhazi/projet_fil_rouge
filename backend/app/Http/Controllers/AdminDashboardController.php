@@ -36,4 +36,6 @@ class AdminDashboardController extends Controller
         return view('dashboard.admin.pages.account-settings',compact('user'));
     }
     
+
+ 
 }
