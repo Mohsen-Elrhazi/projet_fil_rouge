@@ -31,8 +31,10 @@
             <div class="relative">
                 <div class="flex items-center cursor-pointer" id="profile-dropdown-toggle">
                     <div class="profile-avatar mr-2">
+                        @if(isset($user->profile->avatar))
                         <img src="{{asset('storage/' . $user->profile->avatar) }}" alt="Photo de profil"
                             class="w-full h-full object-cover">
+                        @endif
                     </div>
                     <div class="hidden md:block mr-2">
                         <p class="text-sm font-medium">{{ $user->name }}</p>
@@ -49,8 +51,10 @@
                     <div class="p-4 border-b border-gray-100">
                         <div class="flex items-center">
                             <div class="h-12 w-12 rounded-lg overflow-hidden border-2 border-gray-200 mr-3">
+                                @if(isset($user->profile->avatar))
                                 <img src="{{asset('storage/' . $user->profile->avatar) }}" alt="Photo de profil"
                                     class="w-full h-full object-cover">
+                                @endif
                             </div>
                             <div>
                                 <p class="text-sm font-semibold text-gray-800">{{ $user->name }}</p>
