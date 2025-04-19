@@ -23,7 +23,7 @@
                     class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 flex flex-col overflow-hidden">
 
                     <!-- Header fixe -->
-                    <div class="bg-gray-100 p-3 ">
+                    <div class="bg-gray-100 px-3 py-1.5  ">
                         @yield("content1-header")
                     </div>
 
