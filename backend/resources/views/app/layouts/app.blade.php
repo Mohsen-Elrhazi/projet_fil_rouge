@@ -17,12 +17,22 @@
         @include('app.partials.header')
         @include('app.partials.sidebar')
 
-        <main class="p-4 md:ml-16 pt-20 h-screen overflow-hidden">
+        <main class="p-4 md:ml-16 pt-18 h-screen overflow-hidden">
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full h-full overflow-y-auto">
-                <!-- Premier élément avec contenu texte -->
-                <div class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 overflow-y-auto">
-                    @yield('content1')
+                <div
+                    class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 flex flex-col overflow-hidden">
+
+                    <!-- Header fixe -->
+                    <div class="bg-gray-100 p-3 ">
+                        @yield("content1-header")
+                    </div>
+
+                    <!-- Contenu avec défilement -->
+                    <div class="flex-1 overflow-y-auto ">
+                        @yield('content1-body')
+                    </div>
                 </div>
+
 
                 <!-- Deuxième élément -->
                 <div
@@ -32,6 +42,7 @@
 
             </div>
         </main>
+
     </div>
 </body>
 
