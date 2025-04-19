@@ -18,5 +18,6 @@ class ContactController extends Controller
           $contacts = User::search($search)->get();
         }
         
-        return view('app.contacts.index', compact('contacts'));}
+        return view('app.contacts.partials.search-results', compact('contacts'));
+    }
 }

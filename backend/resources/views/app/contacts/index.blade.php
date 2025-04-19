@@ -7,36 +7,26 @@
         <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Contact</h5>
         <!-- modal add contact -->
         <button data-modal-target="large-modal" data-modal-toggle="large-modal"
-            class="block w-full md:w-auto p-1.5 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            class="block w-full md:w-auto p-1.5 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 cursor-pointer"
             type="button">
             <i class="fa-solid fa-user-plus text-lg"></i>
         </button>
 
-        <!-- Large Modal -->
+        <!-- large modal -->
         <div id="large-modal" tabindex="-1"
-            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <div class="relative w-full max-w-4xl max-h-full">
+            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-hidden md:inset-0 h-screen">
+            <div class="relative w-full max-w-4xl h-full flex items-start justify-center">
                 <!-- Modal content -->
-                <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-                    <!-- Modal header -->
-                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200">
+                <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700 w-full max-h-[90vh] flex flex-col">
+                    <!-- Modal header - fixed -->
+                    <div
+                        class="sticky top-0 z-10 flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200 bg-white dark:bg-gray-700">
                         <div class="w-full mr-8">
-                            <!-- Contrôle la largeur du conteneur du formulaire -->
-                            <form class="w-full md:w-3/4 lg:w-3/4" methode="GET"
-                                action="{{ route('contacts.search') }}">
-                                <!-- Contrôle la largeur du formulaire -->
-                                <div class=" flex">
-                                    <select id="countries"
-                                        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm border border-gray-300 rounded-s-lg hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-100">
-                                        <option selected>Shearch by</option>
-                                        <option value="US">Email</option>
-                                        <option value="CA">Phone</option>
-
-                                    </select>
-
+                            <form id="searchForm" class="w-full md:w-3/4 lg:w-3/4">
+                                <div class="flex">
                                     <div class="relative w-full">
-                                        <input type="search" name="query" id="location-search"
-                                            class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                                        <input type="search" name="query" id="search-query"
+                                            class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
                                             placeholder="Search for city or address" required />
                                         <button type="submit"
                                             class="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -64,23 +54,14 @@
                             <span class="sr-only">Close modal</span>
                         </button>
                     </div>
-                    <!-- Modal body -->
-                    <div class="p-4 md:p-5 space-y-4">
-                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                            With less than a month to go before the European Union enacts new consumer privacy laws
-                            for its citizens, companies around the world are updating their terms of service agreements
-                            to
-                            comply.
-                        </p>
-                    </div>
-                    <!-- Modal footer -->
-                    <div
-                        class="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-                        <button data-modal-hide="large-modal" type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I
-                            accept</button>
-                        <button data-modal-hide="large-modal" type="button"
-                            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+
+                    <!-- Modal body - scrollable -->
+                    <div class="overflow-y-auto flex-grow py-4 px-2 md:p-5 space-y-4">
+                        <div id="search-results" class="space-y-4">
+                            <div class="flex items-center justify-center h-full">
+                                <p class="text-gray-500 dark:text-gray-400">Enter search terms to find contacts.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -323,24 +304,63 @@
 @endsection
 
 @section('content2')
-@if($contacts->isEmpty())
-<div class="flex items-center justify-center h-full">
-    <p class="text-gray-500 dark:text-gray-400">No contacts found.</p>
-</div>
-@else
 
-@foreach($contacts as $contact)
-<div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-    <div class="flex items-center">
-        <div class="ml-4">
-            <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $contact->name }}</p>
-            <p class="text-sm text-gray-500 dark:text-gray-400">{{ $contact->email }}</p>
-        </div>
-    </div>
-    <button type="button" class="text-blue-600 hover:text-blue-900 dark:text-blue-500 dark:hover:text-blue-400">
-        <i class="fa-solid fa-user-plus"></i>
-    </button>
-</div>
-@endforeach
-@endif
+
+
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-query');
+    const searchResults = document.getElementById('search-results');
+    let timeoutId = null;
+
+    // Fonction pour effectuer la recherche
+    function performSearch(query) {
+        // Afficher le chargement
+        searchResults.innerHTML =
+            '<div class="flex justify-center"><div class="animate-spin inline-block w-8 h-8 border-4 rounded-full border-gray-300 border-t-blue-600"></div></div>';
+
+        // Requête AJAX
+        fetch(`{{ route('contacts.search') }}?query=${encodeURIComponent(query)}`)
+            .then(response => response.text())
+            .then(html => {
+                searchResults.innerHTML = html;
+            })
+            .catch(error => {
+                searchResults.innerHTML =
+                    '<div class="text-center text-red-500">An error occurred while searching.</div>';
+            });
+    }
+
+    // Écouteur d'événement sur l'input pour la recherche en temps réel
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            clearTimeout(timeoutId);
+
+            const query = this.value.trim();
+
+            // Message par défaut si vide
+            if (query === '') {
+                searchResults.innerHTML =
+                    '<div class="text-center text-gray-500">Enter search terms to find contacts.</div>';
+                return;
+            }
+
+            // Attendre un peu avant de lancer la recherche
+            timeoutId = setTimeout(() => {
+                performSearch(query);
+            }, 300);
+        });
+    }
+
+    // Garder la gestion du formulaire pour compatibilité
+    const searchForm = document.getElementById('searchForm');
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            performSearch(searchInput.value);
+        });
+    }
+});
+</script>
