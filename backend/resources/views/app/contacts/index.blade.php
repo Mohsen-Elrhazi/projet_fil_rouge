@@ -4,7 +4,7 @@
 @section('content1-header')
 <div class="grid grid-rows-2 gap-1 ">
     <div class="flex  items-center justify-between ">
-        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Discussions</h5>
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Contact</h5>
         <!-- modal add contact -->
         <button data-modal-target="large-modal" data-modal-toggle="large-modal"
             class="block w-full md:w-auto p-1.5 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -22,9 +22,10 @@
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200">
                         <div class="w-full mr-8">
                             <!-- Contrôle la largeur du conteneur du formulaire -->
-                            <form class="w-full md:w-3/4 lg:w-3/4">
+                            <form class="w-full md:w-3/4 lg:w-3/4" methode="GET"
+                                action="{{ route('contacts.search') }}">
                                 <!-- Contrôle la largeur du formulaire -->
-                                <div class="flex">
+                                <div class=" flex">
                                     <select id="countries"
                                         class="bg-gray-200 border border-gray-300 text-gray-900 text-sm border border-gray-300 rounded-s-lg hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-100">
                                         <option selected>Shearch by</option>
@@ -34,7 +35,7 @@
                                     </select>
 
                                     <div class="relative w-full">
-                                        <input type="search" id="location-search"
+                                        <input type="search" name="query" id="location-search"
                                             class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
                                             placeholder="Search for city or address" required />
                                         <button type="submit"
@@ -322,159 +323,24 @@
 @endsection
 
 @section('content2')
-<p class="p-3 text-sm sm:text-base">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur ducimus
-    place placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremq placeat libero ipsa eos nemo dignissimos doloremque vel
-    tempore
-    blanditiis laudantium, nesciunt molestias pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    ue vel tempore blanditiis laudantium, nesciunt molestias pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    placeat libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias
-    pariatur
-    at libero ipsa eos nemo dignissimos doloremque vel tempore blanditiis laudantium, nesciunt molestias pariatur
-    cumque eveniet quae necessitatibus illo tempora!</p>
+@if($contacts->isEmpty())
+<div class="flex items-center justify-center h-full">
+    <p class="text-gray-500 dark:text-gray-400">No contacts found.</p>
+</div>
+@else
+
+@foreach($contacts as $contact)
+<div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+    <div class="flex items-center">
+        <div class="ml-4">
+            <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $contact->name }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">{{ $contact->email }}</p>
+        </div>
+    </div>
+    <button type="button" class="text-blue-600 hover:text-blue-900 dark:text-blue-500 dark:hover:text-blue-400">
+        <i class="fa-solid fa-user-plus"></i>
+    </button>
+</div>
+@endforeach
+@endif
 @endsection
