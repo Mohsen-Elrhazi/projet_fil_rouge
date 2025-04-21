@@ -61,25 +61,28 @@ Route::put('/user/profile/update', [ProfileController::class, 'update']);
 Route::put('/user/account-settings/update',[AccountSettingsController::class,'update']); 
 
 // les routs pour application
-Route::prefix('app')->group(function () {
+Route::middleware(['CheckAuth'])->group(function () {
+Route::prefix('app')->name('app.')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     // contacts
     Route::prefix('contacts')->name('contacts.')->group(function () {
         Route::get('/', [ContactController::class, 'index'])->name('index');
-        // Route::post('/', [ContactController::class, 'store'])->name('store');
         Route::get('/search', [ContactController::class, 'search'])->name('search');
+        Route::post('/sendRequest', [ContactController::class, 'sendRequest'])->name('sendRequest');
+        Route::delete('/cancelRequest', [ContactController::class, 'cancelRequest'])->name('cancelRequest');
         // Route::delete('/{user}', [ContactController::class, 'destroy'])->name('remove');
     });
     
     // Chat
-    Route::prefix('chat')->name('chat')->group(function () {
+    Route::prefix('chat')->name('chat.')->group(function () {
        // Discussions Privées
-       Route::prefix('discussions')->name('discussions')->group(function () {
+       Route::prefix('discussions')->name('discussions.')->group(function () {
          Route::get('/', [ChatController::class, 'index'])->name('index');
          Route::get('/{conversation}', [ChatController::class, 'show'])->name('show');
          Route::delete('/{conversation}', [ChatController::class, 'destroy'])->name('destroy');
         
        });
     });
+});
 });
     

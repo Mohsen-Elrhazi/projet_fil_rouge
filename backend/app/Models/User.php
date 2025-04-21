@@ -66,6 +66,18 @@ class User extends Authenticatable
         return $this->hasMany(Message::class);
     }
 
+    // 1. Demandes QUE J'AI INITIÉES (où JE suis l'expéditeur)
+    public function myContactRequests()
+    {
+        return $this->hasMany(Contact::class, 'user_id');
+    }
+
+    // 2. Demandes QUE J'AI REÇUES (où JE suis le destinataire)
+    public function contactRequestsToMe()
+    {
+        return $this->hasMany(Contact::class, 'contact_id');
+    }
+
     public function toSearchableArray()
     {
         return [
@@ -73,5 +85,5 @@ class User extends Authenticatable
             'email' => $this->email,
         ];
     }
-    
+
 }

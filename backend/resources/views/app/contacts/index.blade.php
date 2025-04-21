@@ -4,7 +4,7 @@
 @section('content1-header')
 <div class="grid grid-rows-2 gap-1 ">
     <div class="flex  items-center justify-between ">
-        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Contact</h5>
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Contacts</h5>
         <!-- modal add contact -->
         <button data-modal-target="large-modal" data-modal-toggle="large-modal"
             class="block w-full md:w-auto p-1.5 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 cursor-pointer"
@@ -14,8 +14,8 @@
 
         <!-- large modal -->
         <div id="large-modal" tabindex="-1"
-            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-hidden md:inset-0 h-screen">
-            <div class="relative w-full max-w-4xl h-full flex items-start justify-center">
+            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-hidden md:inset-0 h-screen  ">
+            <div class="relative w-full max-w-2xl h-full flex items-start justify-center">
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700 w-full max-h-[90vh] flex flex-col">
                     <!-- Modal header - fixed -->
@@ -105,6 +105,8 @@
 
     <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+
+            @foreach($users as $user)
             <li class="py-3 sm:py-4">
                 <div class="flex items-center">
                     <div class="shrink-0">
@@ -113,190 +115,18 @@
                     </div>
                     <div class="flex-1 min-w-0 ms-4">
                         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Neil Sims
+                            {{ $user-> name}}
                         </p>
                         <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
+                            last message here
                         </p>
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $320
+                        date
                     </div>
                 </div>
             </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="shrink-0">
-                        <img class="w-12 h-12 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="Bonnie image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Bonnie Green
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $3467
-                    </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center">
-                    <div class="shrink-0">
-                        <img class="w-12 h-12 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="Michael image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Michael Gough
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $67
-                    </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="shrink-0">
-                        <img class="w-12 h-12 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Lana image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Lana Byrd
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $367
-                    </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="shrink-0">
-                        <img class="w-12 h-12 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Lana image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Lana Byrd
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $367
-                    </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="shrink-0">
-                        <img class="w-12 h-12 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Lana image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Lana Byrd
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $367
-                    </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="shrink-0">
-                        <img class="w-12 h-12 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Lana image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Lana Byrd
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $367
-                    </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="shrink-0">
-                        <img class="w-12 h-12 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Lana image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Lana Byrd
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $367
-                    </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="shrink-0">
-                        <img class="w-8 h-8 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Lana image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Lana Byrd
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $367
-                    </div>
-                </div>
-            </li>
-
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="shrink-0">
-                        <img class="w-8 h-8 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Lana image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Lana Byrd
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $367
-                    </div>
-                </div>
-            </li>
-
+            @endforeach
 
         </ul>
     </div>
@@ -322,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
             '<div class="flex justify-center"><div class="animate-spin inline-block w-8 h-8 border-4 rounded-full border-gray-300 border-t-blue-600"></div></div>';
 
         // Requête AJAX
-        fetch(`{{ route('contacts.search') }}?query=${encodeURIComponent(query)}`)
+        fetch(`{{ route('app.contacts.search') }}?query=${encodeURIComponent(query)}`)
             .then(response => response.text())
             .then(html => {
                 searchResults.innerHTML = html;

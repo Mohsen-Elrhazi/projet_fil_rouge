@@ -19,7 +19,7 @@
 
         <!-- Navigation icons -->
         <nav class="flex flex-col items-center space-y-6 w-full">
-            <a href="#"
+            <a href="{{ route('app.contacts.index') }}"
                 class="w-full flex items-center px-3 text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-white">
                 <div class="w-10 h-10 flex items-center justify-center">
                     <i class="fa-solid fa-users"></i>
@@ -27,7 +27,7 @@
                 <span class="ml-3 hidden nav-text">Contacts</span>
             </a>
 
-            <a href="#"
+            <a href="{{ route('app.chat.discussions.index') }}"
                 class="w-full flex items-center px-3 text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-white">
                 <div class="w-10 h-10 flex items-center justify-center">
                     <i class="fa-solid fa-comment"></i>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -10,8 +11,8 @@ class ChatController extends Controller
     
     public function index()
     {
-        // return view(view: 'dashboard.admin.pages.chat.discussions');
-        echo "oij";
+        $users=User::all();
+        return view( 'app.chat.discussions.index', compact('users'));
     }
 
     public function show($id)

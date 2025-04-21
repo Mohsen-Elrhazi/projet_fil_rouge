@@ -13,6 +13,25 @@
 
 <body>
     <div class="antialiased bg-gray-50 dark:bg-gray-900">
+        <!-- Messages de session stylisés -->
+        <!-- @if (session('success') || session('error')) -->
+        <div class="fixed top-5 right-5 z-100" id="session-messages">
+            @if (session('success'))
+            <div class="bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg mb-3 relative overflow-hidden">
+                {{ session('success') }}
+                <div class="absolute bottom-0 left-0 h-1 bg-green-300 progress-bar"></div>
+            </div>
+            @endif
+
+            @if (session('error'))
+            <div class="bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg relative overflow-hidden">
+                {{ session('error') }}
+                <div class="absolute bottom-0 left-0 h-1 bg-red-400 progress-bar"></div>
+            </div>
+            @endif
+        </div>
+        <!-- @endif -->
+        <!-- Fin messages de session stylisés -->
 
         @include('app.partials.header')
         @include('app.partials.sidebar')
@@ -44,6 +63,27 @@
         </main>
 
     </div>
+    <script>
+    // messages sessions
+    const messages = document.querySelectorAll('#session-messages > div');
+    messages.forEach(message => {
+        const progressBar = message.querySelector('.progress-bar');
+        let width = 100;
+        const interval = setInterval(() => {
+            width -= 1;
+            progressBar.style.width = width + '%';
+            if (width <= 0) {
+                clearInterval(interval);
+                message.style.transition = 'opacity 0.5s';
+                message.style.opacity = '0';
+                setTimeout(() => message.remove(), 500);
+            }
+        }, 50);
+    });
+    </script>
+
+
+
 </body>
 
 </html>

@@ -43,10 +43,15 @@ class AuthController extends Controller
     {
 
         if (auth()->attempt($request->only('email', 'password'))) {
-            return redirect()->route('admin.dashboard')->with('success', 'Login successful.');        
+            // // Check if the user has the 'admin' role
+            // if (auth()->user()->role->name === 'admin') {
+            //     return redirect()->route('admin.dashboard')->with('success', 'Login successful.');
+            // }elseif(auth()->user()->role->name === 'user'){
+                return redirect()->route('app.home')->with('success', 'Login successful.');
+            // }
+         
         }
 
-        
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);

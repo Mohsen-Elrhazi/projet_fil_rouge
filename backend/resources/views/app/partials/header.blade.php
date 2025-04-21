@@ -19,11 +19,11 @@
                 </svg>
                 <span class="sr-only">Toggle sidebar</span>
             </button>
-            <a href="https://flowbite.com" class="flex items-center justify-between mr-4">
-                <img src="https://flowbite.s3.amazonaws.com/logo.svg" class="mr-3 h-8" alt="Flowbite Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+            <a href="" class="flex items-center justify-between mr-4">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Lightning</span>
+                <!-- <img src="{{ asset('images/lightning1.gif') }}" class="ml-4 h-8 w-16" alt="Flowbite Logo" /> -->
             </a>
-            <form action="#" method="GET" class="hidden md:block md:pl-2">
+            <!-- <form action="#" method="GET" class="hidden md:block md:pl-2">
                 <label for="topbar-search" class="sr-only">Search</label>
                 <div class="relative md:w-64 md:w-96">
                     <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -38,7 +38,7 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Search" />
                 </div>
-            </form>
+            </form> -->
         </div>
         <div class="flex items-center lg:order-2">
             <button type="button" data-drawer-toggle="drawer-navigation" aria-controls="drawer-navigation"
@@ -427,9 +427,13 @@
                 </ul>
                 <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                     <li>
-                        <a href="#"
-                            class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-                            out</a>
+                        <form method="POST" action="{{ url('logout') }}">
+                            @csrf
+                            <button type="submit"
+                                class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">
+                                Sign out
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>

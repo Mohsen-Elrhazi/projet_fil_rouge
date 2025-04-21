@@ -38,7 +38,6 @@
             </div>
             @endif
         </div>
-
         <!-- @endif -->
         <!-- Fin messages de session stylisés -->
         <div class="flex-col flex  self-center lg:px-14 sm:max-w-4xl xl:max-w-md  z-10">
