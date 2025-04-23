@@ -70,7 +70,7 @@
     </div>
 
     <div>
-        <!-- serch -->
+        <!-- search -->
         <form class="flex items-center gap-2  max-w-sm mx-auto">
             <label for="simple-search" class="sr-only">Search</label>
             <div class="relative w-full">
@@ -110,8 +110,13 @@
             <li class="py-3 sm:py-4">
                 <div class="flex items-center">
                     <div class="shrink-0">
-                        <img class="w-12 h-12 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Neil image">
+                        @if($user->profile)
+                        <img class="w-12 h-12 rounded-full" src="{{asset('storage/' . $user->profile->avatar) }}"
+                            alt="Profile photo">
+                        @else
+                        <img class="w-12 h-12 rounded-full" src="{{ asset('images/avatar profile.jpg') }}"
+                            alt="Neil image">
+                        @endif
                     </div>
                     <div class="flex-1 min-w-0 ms-4">
                         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">

@@ -9,6 +9,9 @@
 
     <title>@yield('title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>

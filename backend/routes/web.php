@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Faker\Provider\HtmlLorem;
@@ -32,7 +33,7 @@ Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout',[AuthController::class, 'logout']);
+Route::get('/logout',[AuthController::class, 'logout']);
 
 
 Route::get('/forgot-password', [AuthController::class, 'forgotPasswordForm'])->name('password.request');
@@ -66,19 +67,18 @@ Route::prefix('app')->name('app.')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     // contacts
     Route::prefix('contacts')->name('contacts.')->group(function () {
-        Route::get('/', [ContactController::class, 'index'])->name('index');
+        // Route::get('/', [ContactController::class, 'index'])->name('index');
         Route::get('/search', [ContactController::class, 'search'])->name('search');
-        Route::post('/sendRequest', [ContactController::class, 'sendRequest'])->name('sendRequest');
-        Route::delete('/cancelRequest', [ContactController::class, 'cancelRequest'])->name('cancelRequest');
-        // Route::delete('/{user}', [ContactController::class, 'destroy'])->name('remove');
     });
+    
     
     // Chat
     Route::prefix('chat')->name('chat.')->group(function () {
        // Discussions Privées
        Route::prefix('discussions')->name('discussions.')->group(function () {
          Route::get('/', [ChatController::class, 'index'])->name('index');
-         Route::get('/{conversation}', [ChatController::class, 'show'])->name('show');
+         Route::get('/show/{id}', [ChatController::class, 'show'])->name('show');
+        Route::post('/sendMessage', [ChatController::class, 'sendMessage'])->name('sendMessage');
          Route::delete('/{conversation}', [ChatController::class, 'destroy'])->name('destroy');
         
        });

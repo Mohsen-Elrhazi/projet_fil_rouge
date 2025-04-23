@@ -56,27 +56,30 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-    public function conversations()
+    //     Messages envoyés par l'utilisateur
+
+    public function sentMessages()
     {
-        return $this->belongsToMany(Conversation::class);
+        return $this->hasMany(Message::class, 'sender_id');
     }
 
+    /**
+     * Messages reçus par l'utilisateur
+     */
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    /**
+     * Relation pour tous les messages (envoyés et reçus)
+     */
     public function messages()
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(Message::class, 'sender_id')
+            ->orWhere('receiver_id', $this->id);
     }
 
-    // 1. Demandes QUE J'AI INITIÉES (où JE suis l'expéditeur)
-    public function myContactRequests()
-    {
-        return $this->hasMany(Contact::class, 'user_id');
-    }
-
-    // 2. Demandes QUE J'AI REÇUES (où JE suis le destinataire)
-    public function contactRequestsToMe()
-    {
-        return $this->hasMany(Contact::class, 'contact_id');
-    }
 
     public function toSearchableArray()
     {

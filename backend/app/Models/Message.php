@@ -10,15 +10,9 @@ class Message extends Model
     use HasFactory;
 
     protected $fillable = [
-        'conversation_id',
-        'user_id',
-        'text',
-        'type',
-        'file_path',
-        'file_name',
-        'file_size',
-        'is_edited',
-        'is_deleted',
+        'sender_id',
+        'receiver_id',
+        'message',
         ];
 
     public function conversation()
