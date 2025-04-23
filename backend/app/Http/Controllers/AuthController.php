@@ -35,7 +35,7 @@ class AuthController extends Controller
             'role_id' => $role->id,
         ]);
 
-        return redirect("/login")->with('success', 'Registration successful. Please login.');
+        return redirect("/login");
 
     }
 

@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
 
-    <title>@yield('title')</title>
+    <!-- Scripts and styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Styles particuliers pour cette page -->
+    @yield('styles')
 </head>
 
 <body>
@@ -20,17 +25,17 @@
         <!-- @if (session('success') || session('error')) -->
         <div class="fixed top-5 right-5 z-100" id="session-messages">
             @if (session('success'))
-            <div class="bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg mb-3 relative overflow-hidden">
-                {{ session('success') }}
-                <div class="absolute bottom-0 left-0 h-1 bg-green-300 progress-bar"></div>
-            </div>
+                <div class="bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg mb-3 relative overflow-hidden">
+                    {{ session('success') }}
+                    <div class="absolute bottom-0 left-0 h-1 bg-green-300 progress-bar"></div>
+                </div>
             @endif
 
             @if (session('error'))
-            <div class="bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg relative overflow-hidden">
-                {{ session('error') }}
-                <div class="absolute bottom-0 left-0 h-1 bg-red-400 progress-bar"></div>
-            </div>
+                <div class="bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg relative overflow-hidden">
+                    {{ session('error') }}
+                    <div class="absolute bottom-0 left-0 h-1 bg-red-400 progress-bar"></div>
+                </div>
             @endif
         </div>
         <!-- @endif -->
@@ -67,25 +72,26 @@
 
     </div>
     <script>
-    // messages sessions
-    const messages = document.querySelectorAll('#session-messages > div');
-    messages.forEach(message => {
-        const progressBar = message.querySelector('.progress-bar');
-        let width = 100;
-        const interval = setInterval(() => {
-            width -= 1;
-            progressBar.style.width = width + '%';
-            if (width <= 0) {
-                clearInterval(interval);
-                message.style.transition = 'opacity 0.5s';
-                message.style.opacity = '0';
-                setTimeout(() => message.remove(), 500);
-            }
-        }, 50);
-    });
+        // messages sessions
+        const messages = document.querySelectorAll('#session-messages > div');
+        messages.forEach(message => {
+            const progressBar = message.querySelector('.progress-bar');
+            let width = 100;
+            const interval = setInterval(() => {
+                width -= 1;
+                progressBar.style.width = width + '%';
+                if (width <= 0) {
+                    clearInterval(interval);
+                    message.style.transition = 'opacity 0.5s';
+                    message.style.opacity = '0';
+                    setTimeout(() => message.remove(), 500);
+                }
+            }, 50);
+        });
     </script>
 
-
+    <!-- Scripts stacked from views -->
+    @stack('scripts')
 
 </body>
 

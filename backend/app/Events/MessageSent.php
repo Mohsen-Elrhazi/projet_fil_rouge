@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\User;
+use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,45 +15,53 @@ class MessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $sender;
-    public $receiverId;
     public $message;
-    public $messageId;
-    public $createdAt;
 
-    public function __construct(User $sender, $receiverId, $message, $messageId, $createdAt)
+    /**
+     * Create a new event instance.
+     */
+    public function __construct(Message $message)
     {
-        $this->sender = $sender;
-        $this->receiverId = $receiverId;
         $this->message = $message;
-        $this->messageId = $messageId;
-        $this->createdAt = $createdAt;
     }
 
-    public function broadcastOn()
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return array<int, \Illuminate\Broadcasting\Channel>
+     */
+    public function broadcastOn(): array
     {
+        // Créer un canal public unique pour cette conversation
+        $user1 = min($this->message->sender_id, $this->message->receiver_id);
+        $user2 = max($this->message->sender_id, $this->message->receiver_id);
+
         return [
-            new PrivateChannel('chat.'.$this->receiverId),
-            new PrivateChannel('chat.'.$this->sender->id)
+            new Channel("chat-{$user1}-{$user2}")
         ];
     }
 
-    public function broadcastAs()
+    /**
+     * The event's broadcast name.
+     */
+    public function broadcastAs(): string
     {
         return 'message.sent';
     }
 
-    public function broadcastWith()
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array<string, mixed>
+     */
+    public function broadcastWith(): array
     {
         return [
-            'sender' => [
-                'id' => $this->sender->id,
-                'name' => $this->sender->name,
-                'avatar' => $this->sender->profile->avatar ?? null,
-            ],
-            'message' => $this->message,
-            'message_id' => $this->messageId,
-            'created_at' => $this->createdAt->toDateTimeString(),
+            'id' => $this->message->id,
+            'message' => $this->message->message,
+            'sender_id' => $this->message->sender_id,
+            'receiver_id' => $this->message->receiver_id,
+            'created_at' => $this->message->created_at
         ];
     }
 }

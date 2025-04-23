@@ -54,7 +54,8 @@
     <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
             @forelse($conversations as $conversation)
-            <li class="py-3 sm:py-4 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+            <li id="conversation-{{ $conversation->id }}"
+                class="py-3 sm:py-4 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
                 <a href="{{ route('app.chat.discussions.show', $conversation->id) }}" class="flex items-center">
                     <div class="shrink-0">
                         @if($conversation->profile)
@@ -69,11 +70,11 @@
                         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
                             {{ $conversation->name }}
                         </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                        <p class="text-sm text-gray-500 truncate dark:text-gray-400 message-preview">
                             {{ $conversation->last_message->message ?? '' }}
                         </p>
                     </div>
-                    <div class="text-xs text-gray-500 dark:text-gray-400">
+                    <div class="text-xs text-gray-500 dark:text-gray-400 timestamp">
                         {{ optional($conversation->last_message)->created_at->diffForHumans() ?? '' }}
                     </div>
                 </a>
@@ -126,8 +127,9 @@
     <div class="flex-1 overflow-y-auto p-3" id="chat-messages">
         @foreach($messages as $message)
         <div class="mb-4 flex {{ $message->sender_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
-            <div class="max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 
-            {{ $message->sender_id == auth()->id() ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800' }}">
+            <div
+                class="max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 
+                    {{ $message->sender_id == auth()->id() ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800' }}">
                 {{ $message->message }}
                 <div class="text-xs mt-1 {{ $message->sender_id == auth()->id() ? 'text-blue-100' : 'text-gray-500' }}">
                     {{ $message->created_at->format('H:i') }}
@@ -164,23 +166,186 @@
             </div>
         </div>
 
-        <form method="post" action="{{ route('app.chat.discussions.sendMessage') }}"
+        <form id="message-form" method="post" action="{{ route('app.chat.discussions.sendMessage') }}"
             class="flex flex-grow items-center gap-3">
             @csrf
             <input type="hidden" name="receiver_id" value="{{$receiver->id}}">
             <div class="flex-grow">
-                <input type="text" id="message" name="message"
+                <input type="text" id="message-input" name="message"
                     class="w-full py-2.5 px-4 bg-white border border-gray-300 outline-none rounded-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Tapez votre message...">
             </div>
 
-            <button type="submit" id="send-message"
+            <button type="submit" id="send-button"
                 class="p-2.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                 <i class="fas fa-paper-plane"></i>
             </button>
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatMessages = document.getElementById('chat-messages');
+    const messageForm = document.getElementById('message-form');
+    const messageInput = document.getElementById('message-input');
+    const senderID = {
+        {
+            auth() - > id()
+        }
+    };
+    const receiverID = {
+        {
+            $receiver - > id
+        }
+    };
+
+    // Défiler vers le bas des messages au chargement
+    function scrollToBottom() {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    scrollToBottom();
+
+    // Initialiser Pusher
+    const pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
+        cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
+        forceTLS: true
+    });
+
+    // Créer un nom de canal unique pour cette conversation entre ces deux utilisateurs
+    const user1ID = Math.min(senderID, receiverID);
+    const user2ID = Math.max(senderID, receiverID);
+    const channelName = `chat-${user1ID}-${user2ID}`;
+
+    console.log(`Subscribing to channel: ${channelName}`);
+
+    // S'abonner au canal de conversation
+    const channel = pusher.subscribe(channelName);
+
+    // Écouter l'événement message.sent
+    channel.bind('message.sent', function(data) {
+        console.log('Message received via Pusher:', data);
+
+        // Ne pas afficher le message si c'est celui que nous venons d'envoyer
+        // L'interface utilisateur aura déjà affiché notre message localement
+        if (data.sender_id == senderID && document.getElementById(`temp-msg-${data.id}`)) {
+            console.log('Skipping message we just sent');
+            return;
+        }
+
+        // Ajouter le message au chat
+        const isFromMe = data.sender_id == senderID;
+        const messageHTML = `
+                    <div class="mb-4 flex ${isFromMe ? 'justify-end' : 'justify-start'}">
+                        <div class="max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 
+                            ${isFromMe ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}">
+                            ${data.message}
+                            <div class="text-xs mt-1 ${isFromMe ? 'text-blue-100' : 'text-gray-500'}">
+                                ${formatTime(new Date(data.created_at))}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+        chatMessages.insertAdjacentHTML('beforeend', messageHTML);
+        scrollToBottom();
+
+        // Mettre à jour la liste des conversations
+        updateConversationsList(data);
+    });
+
+    // Fonction pour formatter l'heure
+    function formatTime(date) {
+        return date.getHours().toString().padStart(2, '0') + ':' +
+            date.getMinutes().toString().padStart(2, '0');
+    }
+
+    // Intercepter la soumission du formulaire
+    if (messageForm) {
+        messageForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // Générer un ID temporaire pour ce message
+            const tempID = 'temp-' + Date.now();
+
+            // Afficher immédiatement le message dans l'UI
+            const tempMessageHTML = `
+                        <div id="temp-msg-${tempID}" class="mb-4 flex justify-end">
+                            <div class="max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 bg-blue-500 text-white">
+                                ${message}
+                                <div class="text-xs mt-1 text-blue-100">
+                                    ${formatTime(new Date())}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+            chatMessages.insertAdjacentHTML('beforeend', tempMessageHTML);
+            scrollToBottom();
+
+            // Envoyer le message via AJAX
+            const formData = new FormData(this);
+
+            fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Message envoyé avec succès:', data);
+
+                    // Remplacer l'ID temporaire par l'ID réel
+                    const tempMsg = document.getElementById(`temp-msg-${tempID}`);
+                    if (tempMsg) {
+                        tempMsg.id = `msg-${data.message.id}`;
+                    }
+
+                    // Vider le champ de saisie
+                    messageInput.value = '';
+                    messageInput.focus();
+                })
+                .catch(error => {
+                    console.error('Erreur lors de l\'envoi du message:', error);
+                });
+        });
+    }
+
+    // Ajouter code pour mettre à jour la liste des conversations
+    function updateConversationsList(data) {
+        // Trouver la conversation concernée dans la liste des conversations
+        const otherUserId = data.sender_id == senderID ? data.receiver_id : data.sender_id;
+        const conversationItem = document.getElementById(`conversation-${otherUserId}`);
+
+        if (conversationItem) {
+            // Mettre à jour le texte du dernier message
+            const messagePreview = conversationItem.querySelector('.message-preview');
+            if (messagePreview) {
+                messagePreview.textContent = data.message;
+            }
+
+            // Mettre à jour l'horodatage
+            const timestamp = conversationItem.querySelector('.timestamp');
+            if (timestamp) {
+                timestamp.textContent = 'à l\'instant';
+            }
+
+            // Déplacer la conversation en haut de la liste
+            const conversationList = conversationItem.parentNode;
+            conversationList.prepend(conversationItem);
+        }
+    }
+});
+</script>
+@endpush
 
 @endsection
 

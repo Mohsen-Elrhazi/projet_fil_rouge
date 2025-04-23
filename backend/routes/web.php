@@ -27,13 +27,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', [AuthController::class, 'registerForm'])->name('register'); 
+Route::get('/register', [AuthController::class, 'registerForm'])->name('register');
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/logout',[AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
 
 Route::get('/forgot-password', [AuthController::class, 'forgotPasswordForm'])->name('password.request');
@@ -50,39 +50,42 @@ Route::middleware(['IsAdmin'])->group(function () {
     Route::get('/admin/account-settings', [AdminDashboardController::class, 'accountSettings'])->name('admin.account');
     Route::get('/admin/users/{id}', [UserController::class, 'activerOrDesactiver'])->name('admin.users.activerOrDesactiver');
     Route::put('/admin/profile/update', [ProfileController::class, 'update']);
-    Route::put('/admin/account-settings/update',[AccountSettingsController::class,'update']);   
+    Route::put('/admin/account-settings/update', [AccountSettingsController::class, 'update']);
 });
 
-    
+
 
 
 
 // 
 Route::put('/user/profile/update', [ProfileController::class, 'update']);
-Route::put('/user/account-settings/update',[AccountSettingsController::class,'update']); 
+Route::put('/user/account-settings/update', [AccountSettingsController::class, 'update']);
 
 // les routs pour application
 Route::middleware(['CheckAuth'])->group(function () {
-Route::prefix('app')->name('app.')->group(function () {
-    // Route::get('/', [HomeController::class, 'home'])->name('home');
-    // contacts
-    Route::prefix('contacts')->name('contacts.')->group(function () {
-        // Route::get('/', [ContactController::class, 'index'])->name('index');
-        Route::get('/search', [ContactController::class, 'search'])->name('search');
-    });
-    
-    
-    // Chat
-    Route::prefix('chat')->name('chat.')->group(function () {
-       // Discussions Privées
-       Route::prefix('discussions')->name('discussions.')->group(function () {
-         Route::get('/', [ChatController::class, 'index'])->name('index');
-         Route::get('/show/{id}', [ChatController::class, 'show'])->name('show');
-        Route::post('/sendMessage', [ChatController::class, 'sendMessage'])->name('sendMessage');
-         Route::delete('/{conversation}', [ChatController::class, 'destroy'])->name('destroy');
-        
-       });
+    Route::prefix('app')->name('app.')->group(function () {
+        Route::get('/', [HomeController::class, 'home'])->name('home');
+        // contacts
+        Route::prefix('contacts')->name('contacts.')->group(function () {
+            // Route::get('/', [ContactController::class, 'index'])->name('index');
+            Route::get('/search', [ContactController::class, 'search'])->name('search');
+        });
+
+
+        // Chat
+        Route::prefix('chat')->name('chat.')->group(function () {
+            // Discussions Privées
+            Route::prefix('discussions')->name('discussions.')->group(function () {
+                Route::get('/', [ChatController::class, 'index'])->name('index');
+                Route::get('/show/{id}', [ChatController::class, 'show'])->name('show');
+                Route::post('/sendMessage', [ChatController::class, 'sendMessage'])->name('sendMessage');
+                Route::delete('/{conversation}', [ChatController::class, 'destroy'])->name('destroy');
+
+            });
+
+            // Route pour déclencher manuellement des événements Pusher (débogage)
+            Route::post('/trigger-pusher', [App\Http\Controllers\ChatController::class, 'triggerPusherEvent'])
+                ->name('trigger-pusher');
+        });
     });
 });
-});
-    

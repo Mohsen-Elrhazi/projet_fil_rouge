@@ -1,6 +1,8 @@
 import "./bootstrap";
-import "flowbite";
+import "../css/app.css";
 
+// Importer l'initialisation de Flowbite
+import "./flowbite-init";
 
 // import Echo from 'laravel-echo';
 

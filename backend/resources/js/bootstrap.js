@@ -4,10 +4,10 @@
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-import axios from 'axios';
+import axios from "axios";
 window.axios = axios;
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -15,40 +15,24 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo';
+import Echo from "laravel-echo";
+import Pusher from "pusher-js";
 
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true,
-//     authEndpoint: '/broadcasting/auth',
-//     auth: {
-//         headers: {
-//             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-//         },
-//     }
-// });
-
-// import Pusher from 'pusher-js';
-// window.Pusher = Pusher;
-
-
-import Echo from 'laravel-echo';
-
-window.Pusher = require('pusher-js');
+// Expose Pusher to the global scope without breaking existing code
+window.Pusher = Pusher;
 
 window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    broadcaster: "pusher",
+    key: import.meta.env.VITE_PUSHER_APP_KEY,
+    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
     forceTLS: true,
-    authEndpoint: '/broadcasting/auth',
+    authEndpoint: "/broadcasting/auth",
     auth: {
         headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            "X-CSRF-TOKEN":
+                document
+                    .querySelector('meta[name="csrf-token"]')
+                    ?.getAttribute("content") || "",
         },
     },
 });
