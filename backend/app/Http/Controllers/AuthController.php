@@ -47,7 +47,7 @@ class AuthController extends Controller
             // if (auth()->user()->role->name === 'admin') {
             //     return redirect()->route('admin.dashboard')->with('success', 'Login successful.');
             // }elseif(auth()->user()->role->name === 'user'){
-                return redirect()->route('app.home')->with('success', 'Login successful.');
+                return redirect()->route('app.chat.discussions.index')->with('success', 'Login successful.');
             // }
          
         }

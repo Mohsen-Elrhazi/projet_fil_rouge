@@ -10,48 +10,51 @@ use Illuminate\Http\Request;
 class ChatController extends Controller
 {
    
+    public function getDiscussions(){
+        $userId = auth()->id();
+    
+        // Récupère les IDs des utilisateurs avec qui l'utilisateur actuel a conversé
+     $conversationUserIds = Message::where('sender_id', $userId)
+        ->orWhere('receiver_id', $userId)
+        ->select('sender_id', 'receiver_id')
+        ->get()
+        ->flatMap(function ($message) use ($userId) {
+            return [$message->sender_id, $message->receiver_id];
+        })
+        ->unique()
+        ->filter(function ($id) use ($userId) {
+            return $id != $userId;
+        });
+
+     // Récupère les utilisateurs avec le dernier message
+     $conversations = User::whereIn('id', $conversationUserIds)
+        ->with(['sentMessages' => function($query) use ($userId) {
+            $query->where('receiver_id', $userId)->latest();
+        }, 'receivedMessages' => function($query) use ($userId) {
+            $query->where('sender_id', $userId)->latest();
+        }])
+        ->get()
+        ->map(function($user) use ($userId) {
+            $lastSent = $user->sentMessages->first();
+            $lastReceived = $user->receivedMessages->first();
+            
+            $user->last_message = collect([$lastSent, $lastReceived])
+                ->filter()
+                ->sortByDesc('created_at')
+                ->first();
+                
+            return $user;
+        })
+        ->sortByDesc(function($user) {
+            return $user->last_message ? $user->last_message->created_at : null;
+        });
+        
+        return $conversations;
+    }
     
     public function index()
     {
-        $userId = auth()->id();
-    
-        // dd(auth()->user()); 
-            // Récupère les IDs des utilisateurs avec qui l'utilisateur actuel a conversé
-        $conversationUserIds = Message::where('sender_id', $userId)
-            ->orWhere('receiver_id', $userId)
-            ->select('sender_id', 'receiver_id')
-            ->get()
-            ->flatMap(function ($message) use ($userId) {
-                return [$message->sender_id, $message->receiver_id];
-            })
-            ->unique()
-            ->filter(function ($id) use ($userId) {
-                return $id != $userId;
-            });
-    
-        // Récupère les utilisateurs avec le dernier message
-        $conversations = User::whereIn('id', $conversationUserIds)
-            ->with(['sentMessages' => function($query) use ($userId) {
-                $query->where('receiver_id', $userId)->latest();
-            }, 'receivedMessages' => function($query) use ($userId) {
-                $query->where('sender_id', $userId)->latest();
-            }])
-            ->get()
-            ->map(function($user) use ($userId) {
-                $lastSent = $user->sentMessages->first();
-                $lastReceived = $user->receivedMessages->first();
-                
-                $user->last_message = collect([$lastSent, $lastReceived])
-                    ->filter()
-                    ->sortByDesc('created_at')
-                    ->first();
-                    
-                return $user;
-            })
-            ->sortByDesc(function($user) {
-                return $user->last_message ? $user->last_message->created_at : null;
-            });
-    
+      $conversations= $this->getDiscussions();
         return view('app.chat.discussions.index', compact('conversations'));
     }
 
@@ -68,8 +71,10 @@ class ChatController extends Controller
               ->where('receiver_id', $sender_id);
     })->orderBy('created_at', 'asc')
       ->get();
+      
+      $conversations= $this->getDiscussions();
     
-    return view('app.chat.discussions.show', compact('receiver', 'messages'));
+    return view('app.chat.discussions.show', compact('receiver', 'messages', 'conversations'));
 }
 
 public function sendMessage(Request $request)

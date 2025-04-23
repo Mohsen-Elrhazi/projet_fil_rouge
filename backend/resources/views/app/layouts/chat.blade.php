@@ -50,50 +50,14 @@
 @endsection
 
 @section('content1-body')
-<div class="w-full max-w-md bg-white rounded-lg shadow-sm sm:px-4 dark:bg-gray-800 dark:border-gray-700">
-    <div class="flow-root">
-        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-            @forelse($conversations as $conversation)
-            <li class="py-3 sm:py-4 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                <a href="{{ route('app.chat.discussions.show', $conversation->id) }}" class="flex items-center">
-                    <div class="shrink-0">
-                        @if($conversation->profile)
-                        <img class="w-10 h-10 rounded-full"
-                            src="{{ asset('storage/' . $conversation->profile->avatar) }}" alt="Profile">
-                        @else
-                        <img class="w-10 h-10 rounded-full" src="{{ asset('images/avatar profile.jpg') }}"
-                            alt="Profile">
-                        @endif
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            {{ $conversation->name }}
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            {{ $conversation->last_message->message ?? '' }}
-                        </p>
-                    </div>
-                    <div class="text-xs text-gray-500 dark:text-gray-400">
-                        {{ optional($conversation->last_message)->created_at->diffForHumans() ?? '' }}
-                    </div>
-                </a>
-            </li>
-            @empty
-            <li class="py-4 text-center text-gray-500 dark:text-gray-400">
-                Aucune conversation trouvée
-            </li>
-            @endforelse
-        </ul>
-    </div>
-</div>
+@yield('content1-body')
 @endsection
 
 @section('content2')
-
-<h1 class="flex justify-center items-center w-full h-full">Welcome to Lightning </h1>
+@yield('content2')
+@yield('content2')
 
 @endsection
-
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

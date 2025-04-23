@@ -64,7 +64,7 @@ Route::put('/user/account-settings/update',[AccountSettingsController::class,'up
 // les routs pour application
 Route::middleware(['CheckAuth'])->group(function () {
 Route::prefix('app')->name('app.')->group(function () {
-    Route::get('/', [HomeController::class, 'home'])->name('home');
+    // Route::get('/', [HomeController::class, 'home'])->name('home');
     // contacts
     Route::prefix('contacts')->name('contacts.')->group(function () {
         // Route::get('/', [ContactController::class, 'index'])->name('index');
