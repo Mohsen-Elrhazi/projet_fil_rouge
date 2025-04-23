@@ -92,21 +92,18 @@ class ChatController extends Controller
         $sender_id = auth()->id();
         $receiver_id = $request->receiver_id;
 
-        // Trouver ou créer une conversation entre ces deux utilisateurs
-        $conversation = $this->findOrCreateConversation($sender_id, $receiver_id);
-
         // Créer le message
         $message = Message::create([
-            'conversation_id' => $conversation->id,
+            'conversation_id' => 0,
             'sender_id' => $sender_id,
             'receiver_id' => $receiver_id,
             'message' => $request->message,
         ]);
 
         // Diffuser l'événement via Pusher
-        broadcast(new \App\Events\MessageSent($message))->toOthers();
+        broadcast(new MessageSent($message));
 
-        // Vérifier si la requête est AJAX
+        // Répondre en fonction du type de requête
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
                 'status' => 'success',

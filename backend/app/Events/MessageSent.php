@@ -5,7 +5,6 @@ namespace App\Events;
 use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -32,7 +31,7 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        // Créer un canal public unique pour cette conversation
+        // Create a unique channel for this conversation
         $user1 = min($this->message->sender_id, $this->message->receiver_id);
         $user2 = max($this->message->sender_id, $this->message->receiver_id);
 
