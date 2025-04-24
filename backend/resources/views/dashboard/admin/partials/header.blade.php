@@ -83,9 +83,9 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="dropdown-item">
+                                <a href="{{ route('app.chat.discussions.index') }}" class="dropdown-item">
                                     <i class="fas fa-question-circle"></i>
-                                    <span>Support</span>
+                                    <span>Application</span>
                                 </a>
                             </li>
                         </ul>

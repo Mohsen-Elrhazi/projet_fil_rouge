@@ -145,10 +145,24 @@ class ChatController extends Controller
     public function destroy($id)
     {
         $message = Message::findOrFail($id);
-        if ($message->sender_id == auth()->user()->id || $message->receiver_id == auth()->user()->id) {
+
+        // Vérifier que l'utilisateur est bien l'expéditeur du message
+        if ($message->sender_id == auth()->id()) {
+            // Stocker les IDs avant de supprimer le message
+            $senderId = $message->sender_id;
+            $receiverId = $message->receiver_id;
+            $messageId = $message->id;
+
+            // Supprimer le message
             $message->delete();
-            return redirect()->back()->with('success', 'Message deleted successfully');
+
+            // Émettre l'événement pour notifier le destinataire
+            broadcast(new \App\Events\MessageDeleted($messageId, $senderId, $receiverId));
+
+            return response()->json(['success' => true]);
         }
+
+        return response()->json(['error' => 'Unauthorized'], 403);
     }
 
     /**

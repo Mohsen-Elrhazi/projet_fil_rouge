@@ -58,8 +58,8 @@ Route::middleware(['IsAdmin'])->group(function () {
 
 
 // 
-Route::put('/user/profile/update', [ProfileController::class, 'update']);
-Route::put('/user/account-settings/update', [AccountSettingsController::class, 'update']);
+// Route::put('/user/profile/update', [ProfileController::class, 'update']);
+// Route::put('/user/account-settings/update', [AccountSettingsController::class, 'update']);
 
 // les routs pour application
 Route::middleware(['CheckAuth'])->group(function () {
@@ -87,5 +87,13 @@ Route::middleware(['CheckAuth'])->group(function () {
             Route::post('/trigger-pusher', [App\Http\Controllers\ChatController::class, 'triggerPusherEvent'])
                 ->name('trigger-pusher');
         });
+
+        Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+        Route::get('/account-settings', [AccountSettingsController::class, 'accountSettings'])->name('account');
+        Route::put('/profile/update', [ProfileController::class, 'update']);
+        Route::put('/account-settings/update', [AccountSettingsController::class, 'update']);
+        
     });
+    
+   
 });

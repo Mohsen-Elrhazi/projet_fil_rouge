@@ -56,7 +56,19 @@ class ProfileController extends Controller
 
         $profile->save();
         
-        return redirect()->route('admin.profile')->with('success', 'Profile updated successfully.');
+        return redirect()->back()->with('success', 'Profile updated successfully.');
     }
+
+    public function profile(){
+        $user=Auth::User();
+        if ($user->profile) {
+            $profile = $user->profile;
+        } else {
+            $profile = new Profile();
+            $profile->user_id = $user->id;
+        }         
+    return view('app.account.profile', compact('user'));
+    }
+    
 
 }

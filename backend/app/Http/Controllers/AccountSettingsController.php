@@ -30,4 +30,12 @@ class AccountSettingsController extends Controller
 
         return redirect()->back()->with('error','Current password is incorrect.');
     }
+    
+    public function accountSettings(){
+        
+        return view('app.account.account');
+    }
+    
+    
+    
 }

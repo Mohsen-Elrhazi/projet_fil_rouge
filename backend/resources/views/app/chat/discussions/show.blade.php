@@ -125,14 +125,40 @@
         <!-- Corps avec défilement pour content2 -->
         <div class="flex-1 overflow-y-auto p-3" id="chat-messages">
             @foreach($messages as $message)
-                <div class="mb-4 flex {{ $message->sender_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
+                <div id="message-{{ $message->id }}"
+                    class="mb-4 flex {{ $message->sender_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
                     <div
-                        class="max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 
-                            {{ $message->sender_id == auth()->id() ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800' }}">
+                        class="max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 relative group
+                                {{ $message->sender_id == auth()->id() ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800' }}">
                         {{ $message->message }}
                         <div class="text-xs mt-1 {{ $message->sender_id == auth()->id() ? 'text-blue-100' : 'text-gray-500' }}">
                             {{ $message->created_at->format('H:i') }}
                         </div>
+
+                        <!-- Options du message (visible au survol uniquement pour les messages envoyés par l'utilisateur) -->
+                        @if($message->sender_id == auth()->id())
+                            <div class="absolute top-0 right-0 hidden group-hover:block">
+                                <div class="dropdown relative inline-block">
+                                    <button
+                                        class="p-1 text-xs opacity-70 hover:opacity-100 rounded-full text-blue-100 hover:bg-blue-600"
+                                        onclick="toggleMessageOptions(event, '{{ $message->id }}')">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div id="message-options-{{ $message->id }}" class="dropdown-content hidden absolute z-10 mt-1 right-0 
+                                            bg-white shadow-lg rounded-md py-1 w-32 text-sm text-gray-700">
+                                        <form action="{{ route('app.chat.discussions.destroy', $message->id) }}" method="POST"
+                                            class="delete-message-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center">
+                                                <i class="fas fa-trash-alt text-red-500 mr-2"></i> Supprimer
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             @endforeach
@@ -231,15 +257,15 @@
                     // Afficher le message s'il provient de l'autre utilisateur
                     if (data.sender_id != senderID) {
                         const messageHTML = `
-                        <div class="mb-4 flex justify-start">
-                            <div class="max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 bg-gray-200 text-gray-800">
-                                ${data.message}
-                                <div class="text-xs mt-1 text-gray-500">
-                                    ${formatTime(new Date(data.created_at))}
+                                <div class="mb-4 flex justify-start">
+                                    <div class="max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 bg-gray-200 text-gray-800">
+                                        ${data.message}
+                                        <div class="text-xs mt-1 text-gray-500">
+                                            ${formatTime(new Date(data.created_at))}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    `;
+                            `;
 
                         chatMessages.insertAdjacentHTML('beforeend', messageHTML);
                         scrollToBottom();
@@ -247,6 +273,23 @@
 
                     // Mettre à jour la liste des conversations avec le dernier message
                     updateConversationItem(data);
+                });
+
+                // Écouter l'événement message.deleted
+                channel.bind('message.deleted', function (data) {
+                    console.log('Message deleted via Pusher:', data);
+
+                    // Trouver et supprimer le message dans l'interface
+                    const messageElement = document.getElementById('message-' + data.message_id);
+                    if (messageElement) {
+                        // Animation de suppression
+                        messageElement.style.opacity = '0';
+                        messageElement.style.transition = 'opacity 0.3s';
+
+                        setTimeout(function () {
+                            messageElement.remove();
+                        }, 300);
+                    }
                 });
 
                 // Fonction pour mettre à jour un élément de conversation dans la liste
@@ -278,22 +321,91 @@
                     }
                 }
 
+                // Fonction pour afficher les options de suppression sur un message
+                function toggleMessageOptions(event, messageId) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const dropdown = document.getElementById(`message-options-${messageId}`);
+                    if (dropdown) {
+                        dropdown.classList.toggle('hidden');
+                    }
+                    
+                    // Fermer tous les autres dropdowns
+                    document.querySelectorAll('.dropdown-content:not(.hidden)').forEach(el => {
+                        if (el.id !== `message-options-${messageId}`) {
+                            el.classList.add('hidden');
+                        }
+                    });
+                }
+
+                // Fermer les dropdowns quand on clique ailleurs
+                document.addEventListener('click', function() {
+                    document.querySelectorAll('.dropdown-content').forEach(el => {
+                        el.classList.add('hidden');
+                    });
+                });
+
+                // Configuration des écouteurs pour les formulaires de suppression existants
+                function setupDeleteForms() {
+                    document.querySelectorAll('.delete-message-form').forEach(form => {
+                        form.addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            const confirmDelete = confirm('Êtes-vous sûr de vouloir supprimer ce message ?');
+                            if (confirmDelete) {
+                                fetch(form.action, {
+                                    method: 'POST',
+                                    body: new FormData(form),
+                                    headers: {
+                                        'X-Requested-With': 'XMLHttpRequest'
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.status === 'success') {
+                                        // La suppression sera gérée par l'événement Pusher
+                                    }
+                                });
+                            }
+                        });
+                    });
+                }
+
+                // Appel initial pour configurer les formulaires existants
+                setupDeleteForms();
+
                 // Fonction pour envoyer un message
                 function sendMessage() {
                     const message = messageInput.value.trim();
                     if (!message) return;
 
                     // Afficher immédiatement le message dans l'UI
+                    let tempPreview = '';
+                    const tempID = 'temp-' + Date.now();
                     const tempMessageHTML = `
-                    <div class="mb-4 flex justify-end">
-                        <div class="max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 bg-blue-500 text-white">
-                            ${message}
-                            <div class="text-xs mt-1 text-blue-100">
-                                ${formatTime(new Date())}
+                        <div id="temp-msg-${tempID}" class="mb-4 flex justify-end">
+                            <div class="max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 bg-blue-500 text-white relative group">
+                                ${tempPreview}
+                                <div class="text-xs mt-1 text-blue-100">
+                                    ${formatTime(new Date())}
+                                </div>
+                                <!-- Options du message (ajouté ici) -->
+                                <div class="absolute top-0 right-0 hidden group-hover:block">
+                                    <div class="dropdown relative inline-block">
+                                        <button class="p-1 text-xs opacity-70 hover:opacity-100 rounded-full text-blue-100 hover:bg-blue-600" 
+                                            onclick="toggleMessageOptions(event, '${tempID}')">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div id="message-options-${tempID}" class="dropdown-content hidden absolute z-10 mt-1 right-0 
+                                            bg-white shadow-lg rounded-md py-1 w-32 text-sm text-gray-700">
+                                            <button type="button" class="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center opacity-50 cursor-not-allowed">
+                                                <i class="fas fa-trash-alt text-red-500 mr-2"></i> Envoi en cours...
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
+                    `;
 
                     chatMessages.insertAdjacentHTML('beforeend', tempMessageHTML);
                     scrollToBottom();
@@ -311,6 +423,38 @@
                         .then(response => response.json())
                         .then(data => {
                             console.log('Message envoyé avec succès:', data);
+
+                            // Remplacer le message temporaire par le message réel avec l'ID correct
+                            const tempMsg = document.getElementById(`temp-msg-${tempID}`);
+                            if (tempMsg) {
+                                tempMsg.id = `message-${data.message.id}`;
+                                
+                                // Mettre à jour les options de suppression avec l'ID réel
+                                const dropdownButton = tempMsg.querySelector('.dropdown button');
+                                const dropdownContent = tempMsg.querySelector('.dropdown-content');
+                                
+                                if (dropdownButton && dropdownContent) {
+                                    dropdownButton.setAttribute('onclick', `toggleMessageOptions(event, '${data.message.id}')`);
+                                    dropdownContent.id = `message-options-${data.message.id}`;
+                                    
+                                    // Remplacer le bouton désactivé par un vrai formulaire de suppression
+                                    dropdownContent.innerHTML = `
+                                        <form action="{{ route('app.chat.discussions.destroy', '') }}/${data.message.id}" method="POST" class="delete-message-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center">
+                                                <i class="fas fa-trash-alt text-red-500 mr-2"></i> Supprimer
+                                            </button>
+                                        </form>
+                                    `;
+                                    
+                                    // Configurer le nouvel écouteur d'événement pour le formulaire
+                                    setupDeleteForms();
+                                }
+                                
+                                // Si c'est un message avec fichier, mettre à jour l'aperçu avec le contenu réel
+                                // ...existing code...
+                            }
 
                             // Mettre à jour la liste des conversations avec le message envoyé
                             if (data.message) {
@@ -342,6 +486,72 @@
                         }
                     });
                 }
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Fonction pour afficher/masquer les options de message
+                window.toggleMessageOptions = function (event, messageId) {
+                    event.stopPropagation();
+                    const optionsContainer = document.getElementById('message-options-' + messageId);
+                    optionsContainer.classList.toggle('hidden');
+
+                    // Cacher les autres menus d'options ouverts
+                    document.querySelectorAll('.dropdown-content').forEach(function (dropdown) {
+                        if (dropdown.id !== 'message-options-' + messageId && !dropdown.classList.contains('hidden')) {
+                            dropdown.classList.add('hidden');
+                        }
+                    });
+
+                    // Ajouter un écouteur d'événements pour cacher le menu lorsqu'on clique ailleurs
+                    document.addEventListener('click', function hideOptions(e) {
+                        if (!optionsContainer.contains(e.target)) {
+                            optionsContainer.classList.add('hidden');
+                            document.removeEventListener('click', hideOptions);
+                        }
+                    });
+                };
+
+                // Gestion de la suppression des messages via AJAX
+                document.querySelectorAll('.delete-message-form').forEach(function (form) {
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+
+                        if (confirm('Êtes-vous sûr de vouloir supprimer ce message ?')) {
+                            const messageId = this.action.split('/').pop();
+                            const messageElement = document.getElementById('message-' + messageId);
+
+                            fetch(this.action, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                },
+                                body: JSON.stringify({
+                                    _method: 'DELETE'
+                                })
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        // Animation de suppression
+                                        messageElement.style.opacity = '0';
+                                        messageElement.style.transition = 'opacity 0.3s';
+
+                                        setTimeout(function () {
+                                            messageElement.remove();
+                                        }, 300);
+                                    } else {
+                                        alert('Une erreur est survenue lors de la suppression du message.');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Erreur:', error);
+                                    alert('Une erreur est survenue lors de la suppression du message.');
+                                });
+                        }
+                    });
+                });
             });
         </script>
     @endpush
