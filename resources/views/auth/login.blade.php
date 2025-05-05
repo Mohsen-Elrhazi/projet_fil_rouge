@@ -105,7 +105,7 @@
                 <span>
                     Copyright © 2024-2025
                     <a href="https://codepen.io/uidesignhub" rel="" target="_blank" title="Codepen aji"
-                        class="text-purple-500 hover:text-purple-600 ">ChatApp</a>
+                        class="text-purple-500 hover:text-purple-600 ">Lightning</a>
                 </span>
             </div>
         </div>

@@ -1,15 +1,14 @@
-@extends('layouts.app')
+@extends('chat.index')
 @section('title', 'Chat - Discussion')
 
-@section('content-main')
-<div class="max-w-2xl mx-auto my-8 px-4">
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-        <!-- En-tête du chat -->
-        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4 flex items-center justify-between">
+@section('show-conversation')
+<div class="flex flex-col h-full w-full max-w-full mx-auto">
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col h-full">
+        <!-- En-tête du chat - fixé en haut -->
+        <div class="bg-white p-2 flex items-center justify-between sticky top-0 z-10 border-b border-gray-200">
             <div class="flex items-center space-x-3">
                 <div class="flex items-center">
-                    <div
-                        class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center text-white font-medium text-lg">
+                    <div class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center">
                         @if($contact->profile && $contact->profile->avatar)
                         <img src="{{ asset('storage/' . $contact->profile->avatar) }}" alt="Profile Picture"
                             class="w-full h-full rounded-full object-cover">
@@ -18,8 +17,8 @@
                             class="w-full h-full rounded-full object-cover">
                         @endif
                     </div>
-                    <div class="ml-3">
-                        <h2 class="text-white font-semibold">{{ $contact->name }}</h2>
+                    <div class="ml-3 font-medium text-sm">
+                        <h2 class="font-semibold">{{ $contact->name }}</h2>
                         <div class="flex items-center">
                             <!-- <span class="h-2 w-2 bg-green-400 rounded-full"></span> -->
                             <!-- <span class="text-xs text-white/80 ml-1">En ligne</span> -->
@@ -28,7 +27,7 @@
                 </div>
             </div>
             <div class="flex space-x-3">
-                <button class="text-white/80 hover:text-white">
+                <button class="hover:text-black/80">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -38,8 +37,8 @@
             </div>
         </div>
 
-        <!-- Zone des messages -->
-        <div id="messages" class="h-96 p-4 overflow-y-auto space-y-4"
+        <!-- Zone des messages - espace flexible qui prend tout l'espace disponible -->
+        <div id="messages" class="flex-grow p-4 overflow-y-auto space-y-4 bg-gray-100"
             style="scrollbar-width: thin; scrollbar-color: #cbd5e1 #f1f1f1;">
             @foreach($messages as $message)
             <div class="flex {{ $message->sender_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
@@ -55,8 +54,8 @@
             @endforeach
         </div>
 
-        <!-- Zone de saisie -->
-        <div class="border-t border-gray-200 p-4">
+        <!-- Zone de saisie - fixée en bas -->
+        <div class="border-t border-gray-200 p-2 bg-white sticky bottom-0 z-10">
             <form id="message-form" class="flex items-center space-x-2">
                 @csrf
                 <button type="button" class="text-gray-400 hover:text-gray-600">
@@ -78,25 +77,19 @@
                         </svg>
                     </button>
                 </div>
-                <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-600 rounded-full p-2 text-white transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                    </svg>
+                <button type="submit" class=" rounded-full p-2 ">
+                    <i class="fa-regular fa-paper-plane text-gray-500 text-xl hover:text-gray-600"></i>
                 </button>
             </form>
         </div>
     </div>
-    <div class="card-footer">
+    <div class="card-footer text-sm absolute -z-10 opacity-0 invisible">
         <div id="debug">
             Chat ID: {{ $conversation->id }} | User: {{ auth()->id() }}
         </div>
     </div>
 </div>
 @endsection
-
 @push('styles')
 <style>
 .messages {

@@ -30,6 +30,18 @@ class ChatController extends Controller
     }
     public function show(User $contact)
     {
+           // recupere les conversations avec le dernier message et le contact
+           $conversations = Conversation::where('user1_id', Auth::id())
+           ->orWhere('user2_id', Auth::id())
+           ->with(['user1.profile', 'user2.profile'])
+           ->get()
+           ->map(function ($conversation) {
+               $conversation->contact = $conversation->user1_id === Auth::id() 
+                   ? $conversation->user2 
+                   : $conversation->user1;
+               return $conversation;
+           });
+           
         $user = Auth::user();
         
         // Trouver ou créer la conversation
@@ -45,7 +57,9 @@ class ChatController extends Controller
         return view('chat.show', [
             'contact' => $contact,
             'conversation' => $conversation,
-            'messages' => $messages
+            'messages' => $messages,
+            'conversations' => $conversations,
+            
         ]);
     }
 

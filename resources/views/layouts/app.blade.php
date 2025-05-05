@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <div class="antialiased bg-gray-50 dark:bg-gray-900">
+    <div class="antialiased  dark:bg-gray-900">
 
         @include('layouts.partials.navbar')
         @include('layouts.partials.sidebar')
