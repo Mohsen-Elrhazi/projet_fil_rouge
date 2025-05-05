@@ -3,7 +3,7 @@
 
 @section('show-conversation')
 <div class="flex flex-col h-full w-full max-w-full mx-auto">
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col h-full">
+    <div class="bg-white  shadow-lg overflow-hidden flex flex-col h-full">
         <!-- En-tête du chat - fixé en haut -->
         <div class="bg-white p-2 flex items-center justify-between sticky top-0 z-10 border-b border-gray-200">
             <div class="flex items-center space-x-3">

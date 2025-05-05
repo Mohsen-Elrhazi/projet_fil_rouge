@@ -25,7 +25,7 @@
         @include('layouts.partials.navbar')
         @include('layouts.partials.sidebar')
 
-        <main class="p-4 md:ml-16 pt-18 h-screen overflow-hidden">
+        <main class=" md:ml-16 pt-15 h-screen overflow-hidden">
             @yield('content-main')
         </main>
 

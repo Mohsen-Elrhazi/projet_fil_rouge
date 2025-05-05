@@ -13,7 +13,6 @@
         </button>
 
         <!-- large modal -->
-        @include('app.contacts.partials.search-modal')
 
         <!-- fin modal -->
     </div>
@@ -53,37 +52,7 @@
 <div class="w-full max-w-md bg-white rounded-lg shadow-sm sm:px-4 dark:bg-gray-800 dark:border-gray-700">
     <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-            @forelse($conversations as $conversation)
-            <li class="py-3 sm:py-4 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
-                id="conversation-{{ $conversation->id }}">
-                <a href="{{ route('app.chat.discussions.show', $conversation->id) }}" class="flex items-center">
-                    <div class="shrink-0">
-                        @if($conversation->profile)
-                        <img class="w-10 h-10 rounded-full"
-                            src="{{ asset('storage/' . $conversation->profile->avatar) }}" alt="Profile">
-                        @else
-                        <img class="w-10 h-10 rounded-full" src="{{ asset('images/avatar profile.jpg') }}"
-                            alt="Profile">
-                        @endif
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            {{ $conversation->name }}
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400 message-preview">
-                            {{ $conversation->last_message->message ?? '' }}
-                        </p>
-                    </div>
-                    <div class="text-xs text-gray-500 dark:text-gray-400 timestamp">
-                        {{ optional($conversation->last_message)->created_at->diffForHumans() ?? '' }}
-                    </div>
-                </a>
-            </li>
-            @empty
-            <li class="py-4 text-center text-gray-500 dark:text-gray-400">
-                Aucune conversation trouvée
-            </li>
-            @endforelse
+
         </ul>
     </div>
 </div>
@@ -94,115 +63,3 @@
 <h1 class="flex justify-center items-center w-full h-full">Welcome to Lightning </h1>
 
 @endsection
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-query');
-    const searchResults = document.getElementById('search-results');
-    let timeoutId = null;
-
-    // Fonction pour effectuer la recherche
-    function performSearch(query) {
-        // Afficher le chargement
-        searchResults.innerHTML =
-            '<div class="flex justify-center"><div class="animate-spin inline-block w-8 h-8 border-4 rounded-full border-gray-300 border-t-blue-600"></div></div>';
-
-        // Requête AJAX
-        fetch(`{{ route('app.contacts.search') }}?query=${encodeURIComponent(query)}`)
-            .then(response => response.text())
-            .then(html => {
-                searchResults.innerHTML = html;
-            })
-            .catch(error => {
-                searchResults.innerHTML =
-                    '<div class="text-center text-red-500">An error occurred while searching.</div>';
-            });
-    }
-
-    // Écouteur d'événement sur l'input pour la recherche en temps réel
-    if (searchInput) {
-        searchInput.addEventListener('input', function() {
-            clearTimeout(timeoutId);
-
-            const query = this.value.trim();
-
-            // Message par défaut si vide
-            if (query === '') {
-                searchResults.innerHTML =
-                    '<div class="text-center text-gray-500">Enter search terms to find contacts.</div>';
-                return;
-            }
-
-            // Attendre un peu avant de lancer la recherche
-            timeoutId = setTimeout(() => {
-                performSearch(query);
-            }, 300);
-        });
-    }
-
-    // Garder la gestion du formulaire pour compatibilité
-    const searchForm = document.getElementById('searchForm');
-    if (searchForm) {
-        searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            performSearch(searchInput.value);
-        });
-    }
-});
-</script>
-
-@push('scripts')
-<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialiser Pusher
-    const pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
-        cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
-        forceTLS: true
-    });
-
-    const currentUserId = {
-        {
-            auth() - > id()
-        }
-    };
-
-    // Écouter tous les canaux de conversation où l'utilisateur est impliqué
-    @foreach($conversations as $conversation)
-        (() => {
-            const otherUserId = {
-                {
-                    $conversation - > id
-                }
-            };
-            const user1ID = Math.min(currentUserId, otherUserId);
-            const user2ID = Math.max(currentUserId, otherUserId);
-            const channelName = `chat-${user1ID}-${user2ID}`;
-
-            const channel = pusher.subscribe(channelName);
-
-            channel.bind('message.sent', function(data) {
-                console.log('Message reçu sur la liste des conversations:', data);
-
-                const conversationItem = document.getElementById(`conversation-${otherUserId}`);
-                if (conversationItem) {
-                    const messagePreview = conversationItem.querySelector('.message-preview');
-                    if (messagePreview) {
-                        messagePreview.textContent = data.message;
-                    }
-
-                    const timestamp = conversationItem.querySelector('.timestamp');
-                    if (timestamp) {
-                        timestamp.textContent = 'à l\'instant';
-                    }
-
-                    const conversationList = conversationItem.parentNode;
-                    conversationList.prepend(conversationItem);
-                }
-            });
-        })();
-    @endforeach
-});
-</script>
-@endpush

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Contacts - Discussions')
 @section('content-main')
-<div class="w-full h-full overflow-y-auto ">
+<div class="w-full h-full overflow-y-auto p-6">
 
 
     @include('contacts.partials.input-search')

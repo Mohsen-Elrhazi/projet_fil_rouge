@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -53,7 +54,7 @@ Route::get('/chat/{contact}', [ChatController::class, 'show'])->name('chat.show'
 Route::post('/chat/send/{contact}', [ChatController::class, 'sendMessage'])->name('chat.send');
 
 // groups
-// Route::get('/group', [ChatController::class, 'index'])->name('group.index');
+Route::get('/group', [GroupController::class, 'index'])->name('group.index');
 });  
 
  // admin dashboard
