@@ -191,7 +191,6 @@
                                     </p>
                                 </div>
 
-                                <!-- Form in 2 columns with improved inputs -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <!-- Name -->
                                     <div class="mb-1">

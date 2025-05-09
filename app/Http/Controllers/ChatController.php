@@ -17,14 +17,21 @@ class ChatController extends Controller
          // recupere les conversations avec le dernier message et le contact
          $conversations = Conversation::where('user1_id', Auth::id())
          ->orWhere('user2_id', Auth::id())
-         ->with(['user1.profile', 'user2.profile'])
+         ->with(['user1.profile', 'user2.profile', 'lastMessage'])
          ->get()
          ->map(function ($conversation) {
              $conversation->contact = $conversation->user1_id === Auth::id() 
                  ? $conversation->user2 
                  : $conversation->user1;
              return $conversation;
-         });
+         })
+         ->sortByDesc(function ($conversation) {
+            // Tri par date du dernier message ou date de création
+            return $conversation->lastMessage 
+                ? $conversation->lastMessage->created_at 
+                : $conversation->created_at;
+        })
+        ->values();
 
      return view('chat.index', compact('conversations'));
     }
@@ -40,7 +47,14 @@ class ChatController extends Controller
                    ? $conversation->user2 
                    : $conversation->user1;
                return $conversation;
-           });
+           })
+           ->sortByDesc(function ($conversation) {
+            // Tri par date du dernier message ou date de création
+            return $conversation->lastMessage 
+                ? $conversation->lastMessage->created_at 
+                : $conversation->created_at;
+        })
+        ->values();
            
         $user = Auth::user();
         
@@ -98,9 +112,5 @@ class ChatController extends Controller
                 'created_at' => $message->created_at->format('H:i')
             ]
         ]);
-
     }
-  
-    
-      
 }

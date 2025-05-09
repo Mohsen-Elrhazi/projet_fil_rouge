@@ -46,12 +46,19 @@ class AuthController extends Controller
 
         if (auth()->attempt($request->only('email', 'password'))) {
             $user = auth()->user();
-            if ($user->role->name === 'app_admin') {
-                return redirect()->route('admin.dashboard');
-            } elseif ($user->role->name === 'user') {
-                return redirect()->route('chat.index');
+            if ($user->status === 'inactive') {
+                return back()->with('error', 'Votre compte est inactif. Veuillez contacter l\'administrateur.');
+            } else {
+                if ($user->role->name === 'app_admin') {
+                    return redirect()->route('admin.dashboard');
+                } elseif ($user->role->name === 'user') {
+                    return redirect()->route('chat.index');
+                }
             }
-         }
+        }
+        return back()->withErrors([
+            'email' => 'Adresse e-mail ou mot de passe incorrect.',
+        ]);
     }
 
     public function logout()

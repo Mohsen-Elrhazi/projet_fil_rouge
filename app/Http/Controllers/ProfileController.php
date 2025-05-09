@@ -16,8 +16,16 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function update(ProfileRequest $request)
+    public function update(Request $request)
     {
+   
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'bio' => 'nullable|string',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        
         $user = Auth::User();
         
         if ($user->profile) {

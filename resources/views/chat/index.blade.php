@@ -57,10 +57,10 @@
         <div class="flex-1 overflow-y-auto " style="scrollbar-width: thin; scrollbar-color:rgb(229, 230, 232) #f1f1f1;">
             <!-- @yield('content1-body') -->
             <div class="max-w-2xl mx-auto  ">
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-white overflow-hidden">
                     <!-- <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
-                        <h1 class="text-white font-semibold text-xl">Mes conversations</h1>
-                    </div> -->
+                            <h1 class="text-white font-semibold text-xl">Mes conversations</h1>
+                        </div> -->
 
                     <div class="divide-y divide-gray-200 overflow-y-auto ">
                         @if($conversations->count() > 0)
@@ -70,8 +70,10 @@
                                 <div class="flex items-center space-x-3">
                                     <div
                                         class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-                                        @if($conversation->contact->profile &&
-                                        $conversation->contact->profile->avatar)
+                                        @if(
+                                        $conversation->contact->profile &&
+                                        $conversation->contact->profile->avatar
+                                        )
                                         <img src="{{ asset('storage/' . $conversation->contact->profile->avatar) }}"
                                             alt="{{ $conversation->contact->name }}" class="h-full w-full object-cover">
                                         @else
@@ -83,8 +85,8 @@
                                         <h2 class="font-medium text-gray-900">{{ $conversation->contact->name }}
                                         </h2>
                                         <p class="text-sm text-gray-500 truncate max-w-xs">
-                                            @if($conversation->last_message)
-                                            {{ $conversation->last_message->content }}
+                                            @if($conversation->lastMessage)
+                                            {{ $conversation->lastMessage->content }}
                                             @else
                                             <span class="italic">Aucun message</span>
                                             @endif
@@ -93,18 +95,17 @@
                                 </div>
                                 <div class="flex flex-col items-end">
                                     <span class="text-xs text-gray-500">
-                                        @if($conversation->last_message)
-                                        {{ $conversation->last_message->created_at->format('H:i') }}
+                                        @if($conversation->lastMessage)
+                                        @if($conversation->lastMessage->created_at->isToday())
+                                        {{ $conversation->lastMessage->created_at->format('H:i') }}
+                                        @else
+                                        {{ $conversation->lastMessage->created_at->format('d/m/Y') }}
+                                        @endif
                                         @else
                                         {{ $conversation->created_at->format('d/m/Y') }}
                                         @endif
                                     </span>
-                                    @if($conversation->unread_count > 0)
-                                    <span
-                                        class="mt-1 bg-blue-500 text-white text-xs font-medium px-2 py-0.5 rounded-full">
-                                        {{ $conversation->unread_count }}
-                                    </span>
-                                    @endif
+
                                 </div>
                             </div>
                         </a>

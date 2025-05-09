@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> -->
 
-    <!--font font-awesome  -->
+    <!-- font-awesome  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -16,7 +15,7 @@
 <body>
     <!-- component -->
     <div
-        class="bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden">
+        class="bg-blue-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-blue-800 bottom-0 leading-5 h-full w-full overflow-hidden">
     </div>
 
     <div class="relative   min-h-screen  sm:flex sm:flex-row  justify-center bg-transparent rounded-3xl shadow-xl">
@@ -54,7 +53,7 @@
                 <div class="mb-7">
                     <h3 class="font-semibold text-2xl text-gray-800">Sign In </h3>
                     <p class="text-gray-500">Don'thave an account? <a href="{{ route('register') }}"
-                            class="text-sm text-purple-700 hover:text-purple-700">Sign Up</a></p>
+                            class="text-sm text-blue-900 hover:text-blue-900">Sign Up</a></p>
                 </div>
 
                 <form method="POST" action="{{ url('login') }}">
@@ -62,7 +61,7 @@
                     <div class="space-y-6">
                         <div class="h-14">
                             <input type="email" placeholder="Email" name="email" value="{{ old('email') }}"
-                                class="{{ $errors->has('email') ? 'border-red-500 ' : '' }} w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400">
+                                class="{{ $errors->has('email') ? 'border-red-500 ' : '' }} w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-blue-900">
                             @error('email')
                             <span class="text-red-500 text-sm ps-4">{{ $message }}</span>
                             @enderror
@@ -71,14 +70,14 @@
 
                         <div class="relative h-14">
                             <input placeholder="Password" type="password" id="password" name="password"
-                                class="{{ $errors->has('password') ? 'border-red-500 ' : '' }} w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400 ">
+                                class="{{ $errors->has('password') ? 'border-red-500 ' : '' }} w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-blue-900">
                             @error('password')
                             <span class="text-red-500 text-sm ps-4">{{ $message }}</span>
                             @enderror
                             <div
                                 class="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5 justify-center text-center">
-                                <i class="fa-regular fa-eye  h-4 w-5 text-purple-700 cursor-pointer mb-[6px]"></i>
-                                <i class="fa-regular fa-eye-slash h-4 w-5 text-purple-700  cursor-pointer mb-[6px]"
+                                <i class="fa-regular fa-eye  h-4 w-5 text-blue-900 cursor-pointer mb-[6px]"></i>
+                                <i class="fa-regular fa-eye-slash h-4 w-5 text-blue-900  cursor-pointer mb-[6px]"
                                     style="display: none;"></i>
                             </div>
                         </div>
@@ -87,14 +86,14 @@
                         <div class="flex items-center justify-between">
 
                             <div class="text-sm ml-auto">
-                                <a href="{{ route("password.request") }}" class="text-purple-700 hover:text-purple-600">
+                                <a href="{{ route("password.request") }}" class="text-blue-900 hover:text-blue-900">
                                     Forgot your password?
                                 </a>
                             </div>
                         </div>
                         <div>
                             <button type="submit"
-                                class="w-full flex justify-center bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
+                                class="w-full flex justify-center bg-[#334155]  hover:bg-[#253750]   text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
                                 Sign in
                             </button>
                         </div>
@@ -103,9 +102,8 @@
             </div>
             <div class="mt-7 text-center text-gray-500 text-sm">
                 <span>
-                    Copyright © 2024-2025
-                    <a href="https://codepen.io/uidesignhub" rel="" target="_blank" title="Codepen aji"
-                        class="text-purple-500 hover:text-purple-600 ">Lightning</a>
+                    Copyright © 2025
+                    <a href="#" rel="" title="Codepen aji" class="text-blue-900 hover:text-blue-900 ">Lightning</a>
                 </span>
             </div>
         </div>
@@ -118,7 +116,7 @@
     <footer class="bg-transparent absolute w-full bottom-0 left-0 z-30">
         <div class="container p-5 mx-auto  flex items-center justify-between ">
             <div class="flex mr-auto">
-                <p class="text-xl">Chat<strong>App</strong></p>
+                <p class="text-xl"><strong>Lightning</strong></p>
                 </a>
             </div>
 

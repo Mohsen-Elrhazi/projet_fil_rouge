@@ -154,6 +154,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
         messagesContainer.insertAdjacentHTML('beforeend', html);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+
     }
 
     // Formater l'heure
@@ -230,9 +232,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     debug.textContent += ' | Message reçu';
                 }
             });
-    } else {
-        debug.textContent += ' | Echo NON disponible';
-        console.error('Laravel Echo n\'est pas disponible');
     }
 });
 </script>

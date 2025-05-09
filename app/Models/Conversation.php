@@ -28,6 +28,12 @@ class Conversation extends Model
         return $this->hasMany(Message::class);
     }
 
+    public function lastMessage()
+    {
+    return $this->hasOne(Message::class)->latestOfMany();
+    }
+
+
     public static function firstOrCreateBetweenUsers($user1, $user2)
     {
         // Chercher d'abord si une conversation existe déjà dans n'importe quel ordre
@@ -44,7 +50,6 @@ class Conversation extends Model
         if ($conversation) {
             return $conversation;
         }
-
        
         $userIds = [$user1->id, $user2->id];
         sort($userIds); 
